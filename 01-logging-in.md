@@ -24,10 +24,10 @@ Instead of using `ssh` in a linux terminal, you may wish to use a standalone SSH
 such as http://www.putty.org or one of the [many others](https://en.wikipedia.org/wiki/Comparison_of_SSH_clients).
 
 Should you need to run graphical programs, such as the user interface for the molecular modeling software Gaussian,
-on the remote server and have the graphical window appear on your local server, you need to connect
+on the remote server and have the graphical window appear on your local screen, you need to connect
 with X11 forwarding. This is done with `ssh -X surname.f@discovery2.neu.edu`. You will need
 to install X11 window system on your local computer, eg. [XQuartz](https://www.xquartz.org) for MacOS X and perhaps [Xming](http://www.straightrunning.com/XmingNotes/) for Windows (untested).
-Otherwise, for command line programs only, you can omit the `-X`. If `-X` doesn't work then try `-Y` (don't ask why).
+Otherwise, for command line programs only, you can just omit the `-X`. If `-X` doesn't work then try `-Y` (don't ask why).
 
 Once you log in you should see a welcome message such as
 
