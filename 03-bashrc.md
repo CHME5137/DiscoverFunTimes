@@ -43,5 +43,15 @@ module load platform-mpi
 module load python-3.5.2
 ```
 
+**Remember!** Your `.bashrc` is only executed when you first log in to a computer,
+so to test the effect of editing your `.bashrc` file you must log out and log
+back in again.   (You can type `source .bashrc` to load an updated file, but
+this will do it *on top of* the original file, and the effect may be unexpected.
+It is safest to always log out and in again.)
+
+Log out like this:
+
+    $ logout
+
 ---
 Next: 4. Installing additional Python modules
