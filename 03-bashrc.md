@@ -42,3 +42,6 @@ module load fftw-3.3.3
 module load platform-mpi
 module load python-3.5.2
 ```
+
+---
+Next: 4. Installing additional Python modules

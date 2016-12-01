@@ -109,3 +109,6 @@ When loading a new module remember to always use `module whatis` to find out wha
 prerequisites are.  If you want to run several programs at the same time, and aren't sure
 what order to load the combined list of prerequisites in, try a few sensible combinations
 then ask researchcomputing@northeastern.edu for help!
+
+---
+Next: [3. Editing your .bashrc](03-bashrc.md)
