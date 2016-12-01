@@ -100,10 +100,11 @@ Press control-D to quit it when you're done:
     Hello, World!
     >>>
 
-
-If you want some new software installed, it's often easiest to just ask the friendly folks at
-researchcomputing@northeastern.edu to install it for you as a new module, than trying
-to configure and compile it yourself.
+You learned in section 7 of the UNIX tutorial
+[how to compile UNIX software packages](http://www.ee.surrey.ac.uk/Teaching/Unix/unix7.html)
+but if you want some new software installed, it's often easiest to ask the friendly folks at
+researchcomputing@northeastern.edu to install it for you as a new module, rather than trying
+to configure and compile it yourself. Especially if you think it'll be useful for other people.
 
 When loading a new module remember to always use `module whatis` to find out what the
 prerequisites are.  If you want to run several programs at the same time, and aren't sure
