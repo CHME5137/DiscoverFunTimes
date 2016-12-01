@@ -27,7 +27,7 @@ You probably want the last one, but find out more about it by typing:
 This will tell you about it, and crucially, a list of the prerequisites, in the correct order.
 These contain compilers and libraries that the software you want was compiled against, and
 are needed for it to run.
-It suggests putting these module load commands in your .bashrc file, which we will get to
+It suggests putting these module load commands in your `.bashrc` file, which we will get to
 in the next tutorial. For now, we will just type them by hand.
 But before you do that, let's see what python you will get without loading the modules.
 There may be several programs called
@@ -40,7 +40,8 @@ I can see my current `$PATH` by typing `echo $PATH`:
     /usr/lib64/qt-3.3/bin:/opt/ibm/platform_mpi/bin:/shared/apps/lsf/9.1/linux2.6-glibc2.3-x86_64/etc:/shared/apps/lsf/9.1/linux2.6-glibc2.3-x86_64/bin:/usr/local/bin:/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/sbin:/home/r.west/bin
 
 The `which` program is a helpful command that tells you which executable program will
-be run when you ask for a given program. For example:
+be run when you ask for a given program. ie. which is the first directory in your `$PATH`
+that contains an executable with the requested name. For example:
 
     $ which python
     /usr/bin/python
@@ -67,7 +68,7 @@ Now let's load the modules we found out about earlier:
     $ module load platform-mpi
     $ module load python-3.5.2
 
-Or you could do them all in one go:
+Or you could do them all in one go (but in the correct order):
 
     $ module load gnu-4.4-compilers fftw-3.3.3 platform-mpi python-3.5.2
 
@@ -76,12 +77,12 @@ And try again:
     $ which python
     /usr/bin/python
 
-That is the same as before:
+That is the same as before!:
 
     $ python -V
     Python 2.6.6
 
-But now we have a new program called `python3` available:
+But now we have a new program called `python3` available, which wasn't before:
 
     $ which python3
     /shared/apps/python/Python-3.5.2/Python-3.5.2/INSTALL/bin/python3
