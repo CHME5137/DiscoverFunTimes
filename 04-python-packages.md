@@ -140,7 +140,7 @@ but get a compute node and use it there.
 Now that we have got it working, you will want to add the line:
 
     export PATH=$PATH:~/.local/bin
-    
+
 to the end of your `.bashrc` file like we did the `module load` statements
 in the previous chapter, so that you don't need to do it each time you log in.
 
@@ -204,3 +204,6 @@ my_figure.pdf
 ```
 
 OK - it's there!  You can retrieve it using some SCP or SFTP commands, or preferably a client with a nice GUI (my favorite is currently [Forklift](http://www.binarynights.com/forklift/) but there are many good free ones to choose from. I used [Cyberduck](https://cyberduck.io/) for a while.)
+
+---
+Next: [5. Submitting a batch job with SLURM](05-slurm.md)
