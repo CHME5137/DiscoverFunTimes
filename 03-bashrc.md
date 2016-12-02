@@ -54,4 +54,4 @@ Log out like this:
     $ logout
 
 ---
-Next: 4. Installing additional Python modules
+Next: [4. Installing additional Python packages](04-python-packages.md)
