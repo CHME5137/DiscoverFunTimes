@@ -1,6 +1,3 @@
-# type in source README.txt to make .bashrc, or if so inclined, try it
-# yourself
-#
 # a Bash RC is used so you do not need to install modules into your user -
 # (i.e. don't install anaconda) 
 # The different modules have different dependencies that will need to be
