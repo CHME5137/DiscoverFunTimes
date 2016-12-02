@@ -2,17 +2,24 @@
 
 Because we're not using Ananconda on Discovery, but the
 python3 installed by the system administrator, installing
-additional Python packages is a little different.
+additional Python packages is a little different from the
+`conda install <package>` that we're used to.
+
+> Notation: lines beginning `$ ` you should enter at a bash prompt,
+(without entering an additional `$`). Lines beginning '>>> ' you should
+enter at the python prompt (without entering an additional '>>> '),
+and lines beginning `In [1]: ` you should enter at an ipython prompt
+(you get the idea).
+Other lines are just to show you what output you can expect.
+Always see what output *you* actually get.
+
+<br/>
+> Important note: Following these instructions will have you run a few minimal Python things on the head login node, just to see if things work. Do *not* get carried away and do any real Python computations on the login nodes, as you will make Discovery slower for everyone else, get in trouble, and embarrass me (your account sponsor) for letting you break the terms of use! Learn how to use the compute nodes, in a later tutorial, before running any serious Python calculations!
+
 
 First, load python3 and see which of our favorite libraries
 are already installed.
 
-> Notation: lines beginning `$ ` you should enter at a bash prompt,
-(without entering an additional `$`). Lines beginning '>>> ' you should
-enter at the python prompt (without entering an additional '>>> ').
-Other lines are just to show you what output you can expect.
-
-> *NOTE* Following these instructions will have you run a few minimal Python things on the head login node, just to see if things work. Do *not* get carried away and do any real Python computations on the login nodes, as you will ruin discovery for everyone, and get me (your account sponsor) in trouble for letting you break the terms of use! Learn how to use the compute nodes, in a later tutorial, before running any serious Python calculations!
 
 ```python
 $ python3
@@ -102,7 +109,7 @@ Now let's try looking for the new `ipython` program:
     /usr/bin/which: no ipython in (/shared/apps/python/Python-3.5.2/Python-3.5.2/INSTALL/bin:/shared/apps/fftw/fftw-3.3.3/INSTALL/bin:/shared/apps/gnu-compilers/usr/bin:/usr/lib64/qt-3.3/bin:/opt/ibm/platform_mpi/bin:/shared/apps/lsf/9.1/linux2.6-glibc2.3-x86_64/etc:/shared/apps/lsf/9.1/linux2.6-glibc2.3-x86_64/bin:/usr/local/bin:/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/sbin:/home/r.west/bin)
 
 Same result as before! We can't find it.
-That's because `pip --user` installed it in the folder '~/.local/bin', which isn't on our '$PATH'. If we add it to the end of our `$PATH` environment variable, it'll work:
+That's because `pip --user` installed it in the folder `~/.local/bin`, which isn't on our `$PATH`. If we add it to the end of our `$PATH` environment variable, it'll work:
 
     $ export PATH=$PATH:~/.local/bin
     $ which ipython
@@ -134,7 +141,7 @@ We managed to install matplotlib, but can we use it?
 *This section of tutorial should be moved to after we've learned to run interactive sessions on compute nodes, so we don't do it on the login node*.
 First load `ipython` then try `from matplotlib import pyplot as plt` as we are used to doing.
 
-```python
+```
 $ ipython
 Python 3.5.2 (default, Sep 19 2016, 11:10:34)
 Type "copyright", "credits" or "license" for more information.
@@ -149,19 +156,9 @@ In [1]: from matplotlib import pyplot as plt
 ```
 
 This will give a long error message, with the clue `# If this fails your Python may not be configured for Tk`.  Googling this will eventually lead you to try the following
-, but I'll save you some time. You have to `exit()` your `ipython` session and start a new one:
+, but I'll save you some time. You have to `exit()` your `ipython` session and start a new one (`$ ipython`):
 
  ```python
-$ ipython
-Python 3.5.2 (default, Sep 19 2016, 11:10:34)
-Type "copyright", "credits" or "license" for more information.
-
-IPython 5.1.0 -- An enhanced Interactive Python.
-?         -> Introduction and overview of IPython's features.
-%quickref -> Quick reference.
-help      -> Python's own help system.
-object?   -> Details about 'object', use 'object??' for extra details.
-
 In [1]: import matplotlib
 
 In [2]: matplotlib.use('Agg')
@@ -188,7 +185,13 @@ Don't see anything? If you had installed an X11 window system and used X11 forwa
 In [6]: plt.savefig("my_figure.pdf")
 
 In [7]: exit()
+```
 
+Now look for the file:
+
+```
 $ ls *.pdf
 my_figure.pdf
 ```
+
+OK - it's there!  You can retrieve it using some SCP or SFTP commands, or preferably a client with a nice GUI (my favorite is currently [Forklift](http://www.binarynights.com/forklift/) but there are many good free ones to choose from).
