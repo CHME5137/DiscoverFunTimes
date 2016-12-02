@@ -134,7 +134,16 @@ on-the-spot help, like we got used to in Jupyter notebooks.
 You can learn about them by typing `?` at
 an ipython prompt, or reading https://ipython.org.
 
-Remember: *don't* use it on the head login node (like we just did).
+Remember: *don't* use ipython on the head login node (like we just did),
+but get a compute node and use it there.
+
+Now that we have got it working, you will want to add the line:
+
+    export PATH=$PATH:~/.local/bin
+    
+to the end of your `.bashrc` file like we did the `module load` statements
+in the previous chapter, so that you don't need to do it each time you log in.
+
 
 ## Using matplotlib
 We managed to install matplotlib, but can we use it?
