@@ -1,40 +1,50 @@
 # Submitting Slurm Jobs
 
-First things first, we need to load SLURM. The slurm workload manager is a open-source job scheduler, that is currently being used on Discovery. Slurm does all the admininstration work of telling which jobs to run on which nodes, based on the conditions you give it. This allows multiple people to have access to the same computing resources. So we need the slurm module: 
-	
-	module load slurm-14.11.8
+First things first, we need to load SLURM. The slurm workload manager is a open-source job scheduler, that is currently being used on Discovery. Slurm does all the admininstration work of telling which jobs to run on which nodes, based on the conditions you give it. This allows multiple people to have access to the same computing resources.
+To use it we need the slurm module:
 
-Refer back to 02 - Loading modules if you forgot how to find the dependencies.
+	$ module load slurm-14.11.8
 
-Let's assume that we have a job, called `input.py` that we want to run. If we want to have slurm manage the job for us, we need to create a submit file, commonly titled `submit.sh`.
+Refer back to [chapter 2](02-modules.md) for how to find the required dependencies and add
+the necessarry `module load` commands to your `.bashrc` file.
+
+Detailed instructions for this version of SLURM are [here](https://slurm.schedmd.com/archive/slurm-14.11.11/) should you need them, and the Discovery instructions are [here](http://nuweb12.neu.edu/rc/?page_id=18).
+
+Let's assume that we have a python script, called `my_awesome_script.py` that we want to run. If we want to have slurm manage the job for us, we need to create a submission script, commonly titled `submit.sh`.
 
 Here are some common headers for a `submit.sh` file:
 
 	#!/bin/sh
 
-`#!/bin/sh` will point slurm to the system shell, where your linux comannds come from.
+The first line of a script beginning with `#!` tells the computer
+how to interpret the script. In this case it's a shell script,
+that will be run with the `sh` shell that can be found at `/bin` directory.
+
+Then follows a number of lines beginning with `#SBATCH`, which tell SLURM how you want the job to be run.
 
 	#SBATCH -n 1
-
-`#SBATCH` will tell slurm that you are telling it, specifically, how you want the job to be run. `-n` tells slurm how many processors to run the job with. Your `input.py` file needs to optimized to take advantage of multiple processors to reap any benefits.
-
 	#SBATCH -N 1
 	#SBATCH --job-name=hello
 	#SBATCH -e error.log
 	#SBATCH -o output.log
 	#SBATCH -p ser-par-10g
 
-`-N 1` will tell it to not split up the processors across multiple nodes. This can sometimes cause issues so it's usually safest to leave it in there. `--job-name` tells slurm what to title your job, making it easier for you to find within all of the other running jobs. `-e` and `-o` are where your standard error and standard output, respectively,  will be written to. These files will be over-written by other jobs (this can sometimes cause issues with running a job array - but that's for later). You can also point `-e` and `-o` to the same file, and both the errors and outputs will be written to the same file. The `-p` command tells slurm the node you would like to run the job on.
+These mean:
+ * `-n` tells SLURM how many processors to run the job with. Your `my_awesome_script.py` file needs to be designed to take advantage of multiple processors to reap any benefits from having this greater than one.
+ * `-N 1` will tell it to not split up the processors across multiple nodes. This can sometimes cause issues so it's usually safest to leave it in there.
+ * `--job-name` tells slurm what to title your job, making it easier for you to find within all of the other running jobs.
+ * `-e` and `-o` are where your standard error and standard output, respectively,  will be written to. These files will be over-written by other jobs (this can sometimes cause issues with running a job array - but that's for later). You can also point `-e` and `-o` to the same file, and both the errors and outputs will be written to the same file.
+ * `-p` command tells slurm the *partition* that you would like to run the job on. More on those later.
 
-After the headers, you will need to add a line (using system shell commands) to run your job. 
+After the headers, you will need to add a line(s) (using system shell commands) to run your job.
 
-	python your_script.py
+	python3 my_awesome_script.py
 
-to simply run the job or
+to simply run the job, or
 
-	stdbuf -o0 -e0 python -u your_script.py
+	stdbuf -o0 -e0 python -u my_awesome_script.py
 
-if you have concerns about slurm's buffer. 
+if you have concerns about SLURM's buffer.
 
 Your `submit.sh` file should look something like this:
 
@@ -45,33 +55,33 @@ Your `submit.sh` file should look something like this:
 	#SBATCH -o output.log
 	#SBATCH -p ser-par-10g
 
-	stdbuf -o0 -e0 python -u your_script.py
+	stdbuf -o0 -e0 python -u my_awesome_script.py
 
 You can then run the following command in your terminal window:
 
 	$ sbatch submit.sh
 
 The following response should occur:
-	
+
 	Submitted batch job <job_number>
 
-If you want to double check on your job:
+If you want to check the status of your job(s):
 
-	$ squeue 
+	$ squeue
 
-Will show you the jobs of everything submitted to Discovery. 
+Will show you the jobs of everything submitted to Discovery.
 
-	$ squeue -u <user_name> 
+	$ squeue -u <user_name>
 
-Will show you the jobs that you have submitted.
+Will show you the jobs that you have submitted (eg. `squeue -u husky.id`).
 
-	$ squeue -p <nodes_name> 
+	$ squeue -p <partition_name>
 
-Will show you all the jobs on the collections of nodes you specify.
+Will show you all the jobs on the partition you specify.
 
-	$ scancel <job_number> 
+	$ scancel <job_number>
 
-Will stop the jobs that you need to stop.
+Will stop the job that you need to stop.
 
-
-
+---
+Next: 6. Running an interactive job.
