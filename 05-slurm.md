@@ -92,4 +92,4 @@ Full details are [here](http://nuweb12.neu.edu/rc/?page_id=14)
 
 
 ---
-Next: 6. Running an interactive job.
+Next: 6. [Running an interactive job.](06-interactive.md)
