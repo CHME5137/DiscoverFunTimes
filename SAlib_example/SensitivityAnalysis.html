@@ -11955,7 +11955,7 @@ Here are the first 10 rows:
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Stop!">Stop!<a class="anchor-link" href="#Stop!">&#182;</a></h1><h2 id="Now-(pretend)-we-need-to-run-the-simulations-on-Discovery">Now (pretend) we need to run the simulations on Discovery<a class="anchor-link" href="#Now-(pretend)-we-need-to-run-the-simulations-on-Discovery">&#182;</a></h2><p>To run this on Discovery, you will need to copy the <code>parameter_values.txt</code> and <code>results.txt</code> files on to Discovery, along with a Python script file (eg. <code>my_script.py</code>) that looks like the cell a few lines below.  Use an SCP or SFTP program, as described earlier in the tutorial.</p>
+<h1 id="Stop!">Stop!<a class="anchor-link" href="#Stop!">&#182;</a></h1><h2 id="Now-(pretend)-we-need-to-run-the-simulations-on-Discovery">Now (pretend) we need to run the simulations on Discovery<a class="anchor-link" href="#Now-(pretend)-we-need-to-run-the-simulations-on-Discovery">&#182;</a></h2><p>To run this on Discovery, you will need to copy the <code>parameter_values.txt</code> file on to Discovery, along with a Python script file (eg. <code>script.py</code>) that looks like the cell a few lines below.  Use an SCP or SFTP program, as described earlier in the tutorial.</p>
 <p>This is how many simulations we will need to run:</p>
 
 </div>
@@ -11995,8 +11995,8 @@ Here are the first 10 rows:
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>...but the Slurm on Discovery seems to be configured with a maximum job array size around 1000. (We have got 1000 to work, and 8000 to fail). So we will run 1000 jobs, each of which runs 8 simulations.
-(To update the following cell, uncomment the first line and execute it)</p>
+<p>...but the Slurm on Discovery is configured with a maximum job array size of 1001. (Run <code>scontrol show config | grep MaxArraySize</code> on Discovery to check). So we will run 1000 jobs, each of which runs 8 simulations.</p>
+<p><em>To update the following cell, uncomment the first <code>%load script.py</code> line and execute it - that will load in the <code>script.py</code> file which lives alongside this notebook and is where you should make changes if you are editing this tutorial.</em></p>
 
 </div>
 </div>
@@ -12062,7 +12062,7 @@ Because our results file may not be in order, but contains the job number at the
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[15]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">results_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s2">&quot;results.txt&quot;</span><span class="p">)</span>
@@ -12075,6 +12075,36 @@ Because our results file may not be in order, but contains the job number at the
 </pre></div>
 
 </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_text output_error">
+<pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">ValueError</span>                                Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-15-bb59a9264336&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span><span class="ansi-blue-fg">()</span>
+<span class="ansi-green-fg">----&gt; 1</span><span class="ansi-red-fg"> </span>results_array <span class="ansi-blue-fg">=</span> np<span class="ansi-blue-fg">.</span>loadtxt<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#34;results.txt&#34;</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">      2</span> results_dict <span class="ansi-blue-fg">=</span> dict<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">      3</span> <span class="ansi-green-fg">for</span> number<span class="ansi-blue-fg">,</span> value <span class="ansi-green-fg">in</span> results_array<span class="ansi-blue-fg">:</span>
+<span class="ansi-green-intense-fg ansi-bold">      4</span>     results_dict<span class="ansi-blue-fg">[</span>int<span class="ansi-blue-fg">(</span>number<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">]</span> <span class="ansi-blue-fg">=</span> value
+<span class="ansi-green-intense-fg ansi-bold">      5</span> results_dict
+
+<span class="ansi-green-fg">/Users/rwest/anaconda/envs/py3/lib/python3.5/site-packages/numpy/lib/npyio.py</span> in <span class="ansi-cyan-fg">loadtxt</span><span class="ansi-blue-fg">(fname, dtype, comments, delimiter, converters, skiprows, usecols, unpack, ndmin)</span>
+<span class="ansi-green-intense-fg ansi-bold">    925</span>                 line_num <span class="ansi-blue-fg">=</span> i <span class="ansi-blue-fg">+</span> skiprows <span class="ansi-blue-fg">+</span> <span class="ansi-cyan-fg">1</span>
+<span class="ansi-green-intense-fg ansi-bold">    926</span>                 raise ValueError(&#34;Wrong number of columns at line %d&#34;
+<span class="ansi-green-fg">--&gt; 927</span><span class="ansi-red-fg">                                  % line_num)
+</span><span class="ansi-green-intense-fg ansi-bold">    928</span> 
+<span class="ansi-green-intense-fg ansi-bold">    929</span>             <span class="ansi-red-fg"># Convert each value according to its column and store</span>
+
+<span class="ansi-red-fg">ValueError</span>: Wrong number of columns at line 112</pre>
+</div>
+</div>
+
 </div>
 </div>
 

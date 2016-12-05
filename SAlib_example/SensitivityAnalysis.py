@@ -101,7 +101,7 @@ with open("results.txt", 'w') as result_file:  # 'w' is write mode, and will cle
 # # Stop!  
 # ## Now (pretend) we need to run the simulations on Discovery
 # 
-# To run this on Discovery, you will need to copy the `parameter_values.txt` and `results.txt` files on to Discovery, along with a Python script file (eg. `my_script.py`) that looks like the cell a few lines below.  Use an SCP or SFTP program, as described earlier in the tutorial.
+# To run this on Discovery, you will need to copy the `parameter_values.txt` file on to Discovery, along with a Python script file (eg. `script.py`) that looks like the cell a few lines below.  Use an SCP or SFTP program, as described earlier in the tutorial.
 # 
 # This is how many simulations we will need to run:
 
@@ -110,8 +110,9 @@ with open("results.txt", 'w') as result_file:  # 'w' is write mode, and will cle
 len(sample)
 
 
-# ...but the Slurm on Discovery seems to be configured with a maximum job array size around 1000. (We have got 1000 to work, and 8000 to fail). So we will run 1000 jobs, each of which runs 8 simulations.
-# (To update the following cell, uncomment the first line and execute it)
+# ...but the Slurm on Discovery is configured with a maximum job array size of 1001. (Run `scontrol show config | grep MaxArraySize` on Discovery to check). So we will run 1000 jobs, each of which runs 8 simulations.
+# 
+# *To update the following cell, uncomment the first `%load script.py` line and execute it - that will load in the `script.py` file which lives alongside this notebook and is where you should make changes if you are editing this tutorial.*
 
 # In[ ]:
 
@@ -145,12 +146,13 @@ for i in range(8):
 # ```
 # in your batch file.
 # Once your jobs have all finished, copy the `results.txt` back to your computer and put it alongside this Notebook.
+# 
 
 # ## Importing and analyzing the results 
 # Then come back here to load the results and continue the sensitivy analysis.
 # Because our results file may not be in order, but contains the job number at the start of each line, we need to do a little manipulation to get the `output` array as needed
 
-# In[ ]:
+# In[15]:
 
 results_array = np.loadtxt("results.txt")
 results_dict = dict()
