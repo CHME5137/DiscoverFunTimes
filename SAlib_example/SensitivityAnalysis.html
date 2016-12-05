@@ -11801,57 +11801,7 @@ Updates to demonstrate running array jobs on a cluster: Richard West, 2016</p>
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="One-at-time-approach">One-at-time approach<a class="anchor-link" href="#One-at-time-approach">&#182;</a></h3><p>First, we're going to try the <strong>one-at-a-time</strong> (OAT) approach.</p>
-<p>Find the sliders in the example which are set up for the parameters of the Nissan Leaf.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[3]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="nd">@interact</span><span class="p">(</span><span class="n">connector</span><span class="o">=</span><span class="n">widgets</span><span class="o">.</span><span class="n">FloatSlider</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="mf">2.3</span><span class="p">,</span> <span class="nb">min</span><span class="o">=</span><span class="mf">2.3</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mi">22</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mf">0.5</span><span class="p">),</span> 
-          <span class="n">battery_size</span><span class="o">=</span><span class="n">widgets</span><span class="o">.</span><span class="n">FloatSlider</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="mi">24</span><span class="p">,</span> <span class="nb">min</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mi">5</span><span class="p">),</span> 
-          <span class="n">distance_driven</span><span class="o">=</span><span class="n">widgets</span><span class="o">.</span><span class="n">FloatSlider</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="nb">min</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mi">5</span><span class="p">),</span> 
-          <span class="n">range_buffer</span><span class="o">=</span><span class="n">widgets</span><span class="o">.</span><span class="n">FloatSlider</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="nb">min</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mi">10</span><span class="p">),</span>
-          <span class="n">dispatch_time</span><span class="o">=</span><span class="n">widgets</span><span class="o">.</span><span class="n">FloatSlider</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="mf">1.4</span><span class="p">,</span> <span class="nb">min</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mi">24</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mf">0.5</span><span class="p">))</span>
-<span class="k">def</span> <span class="nf">plot_power</span><span class="p">(</span><span class="n">connector</span><span class="p">,</span> <span class="n">battery_size</span><span class="p">,</span> <span class="n">distance_driven</span><span class="p">,</span> <span class="n">range_buffer</span><span class="p">,</span> <span class="n">dispatch_time</span><span class="p">):</span>
-    <span class="n">power</span> <span class="o">=</span> <span class="n">max_vehicle_power</span><span class="p">(</span><span class="n">connector</span><span class="p">,</span>
-                      <span class="n">battery_size</span><span class="p">,</span>
-                      <span class="n">distance_driven</span><span class="p">,</span>
-                      <span class="n">range_buffer</span><span class="p">,</span>
-                      <span class="n">dispatch_time</span>
-                      <span class="p">)</span>
-    <span class="k">return</span> <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The maximum power is </span><span class="si">{}</span><span class="s2"> kW&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">power</span><span class="p">,</span> <span class="mi">2</span><span class="p">)))</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>The maximum power is 2.3 kW
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Using-SALib-to-run-a-Sensitivity-Analysis">Using SALib to run a Sensitivity Analysis<a class="anchor-link" href="#Using-SALib-to-run-a-Sensitivity-Analysis">&#182;</a></h1><p>As we saw earlier, SALib is a <strong>free</strong> <strong>open-source</strong> <strong>Python</strong> library which you can install by running the command</p>
+<h2 id="Using-SALib-to-run-a-Sensitivity-Analysis">Using SALib to run a Sensitivity Analysis<a class="anchor-link" href="#Using-SALib-to-run-a-Sensitivity-Analysis">&#182;</a></h2><p>As we saw earlier, SALib is a <strong>free</strong> <strong>open-source</strong> <strong>Python</strong> library which you can install by running the command</p>
 <div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">SALib</span>
 </pre></div>
 <p><a href="http://salib.readthedocs.org/">Documentation</a> is available online.</p>
@@ -11975,6 +11925,16 @@ Here are the first 10 rows:
 </div>
 
 </div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Now we're going to save the parameters to a file, so we can run the jobs separately not in this notebook.</p>
+
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[7]:</div>
@@ -11995,8 +11955,7 @@ Here are the first 10 rows:
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Now to run this on Discovery, make a script file that looks like the following cell.
-We don't know what order the jobs will complete in, so we record the job number in the output file as well as the result.</p>
+<h1 id="Stop!">Stop!<a class="anchor-link" href="#Stop!">&#182;</a></h1><h2 id="Now-(pretend)-we-need-to-run-the-simulations-on-Discovery">Now (pretend) we need to run the simulations on Discovery<a class="anchor-link" href="#Now-(pretend)-we-need-to-run-the-simulations-on-Discovery">&#182;</a></h2><p>To run this on Discovery, you will need to copy the <code>parameter_values.txt</code> and <code>results.txt</code> files on to Discovery, along with a Python script file (eg. <code>my_script.py</code>) that looks like the following cell.  Use an SCP or SFTP program, as described earlier in the tutorial.</p>
 
 </div>
 </div>
@@ -12006,7 +11965,9 @@ We don't know what order the jobs will complete in, so we record the job number 
 <div class="prompt input_prompt">In&nbsp;[8]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># This is a script that you should run on Discovery, as part of a Slurm Array job.</span>
+<span class="c1"># Don&#39;t just run this cell in the notebook.</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">from</span> <span class="nn">model</span> <span class="k">import</span> <span class="n">max_vehicle_power</span>
 <span class="n">big_parameter_list</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s2">&quot;parameter_values.txt&quot;</span><span class="p">)</span>
@@ -12014,6 +11975,12 @@ We don't know what order the jobs will complete in, so we record the job number 
 <span class="n">parameters</span> <span class="o">=</span> <span class="n">big_parameter_list</span><span class="p">[</span><span class="n">job_number</span><span class="p">]</span>
 <span class="n">parameters</span>
 <span class="n">result</span> <span class="o">=</span> <span class="n">max_vehicle_power</span><span class="p">(</span><span class="o">*</span><span class="n">parameters</span><span class="p">)</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Because we don&#39;t know what order the jobs will complete in,</span>
+<span class="sd">the results may be written out of order!</span>
+<span class="sd">To deal with this, we will write the job number in the results file</span>
+<span class="sd">as well as the result:</span>
+<span class="sd">&quot;&quot;&quot;</span>
 <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;results.txt&quot;</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">result_file</span><span class="p">:</span> <span class="c1"># &#39;a&#39; is append mode, and will add to the file.</span>
     <span class="n">result_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">job_number</span><span class="p">,</span> <span class="n">result</span><span class="p">))</span> <span class="c1"># the &#39;\n&#39; is a new line</span>
 </pre></div>
@@ -12028,7 +11995,7 @@ We don't know what order the jobs will complete in, so we record the job number 
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Run it as an Array job to fill the <code>results.txt</code> file with results.
+<p>Then create a <code>submit.sh</code> script to run it as an Array job to fill the <code>results.txt</code> file with results.
 This is how many jobs you will need:</p>
 
 </div>
@@ -12068,7 +12035,21 @@ This is how many jobs you will need:</p>
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Then come back here to load the results and continue the sensitivy analysis.
+<p>But realize that your Python script above expects the job number to start at zero, so you'll probably want something like</p>
+
+<pre><code>    #SBATCH --array=0-7999%16</code></pre>
+<p>in your batch file.
+Once your jobs have all finished, copy the <code>results.txt</code> back to your computer and put it alongside this Notebook.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Importing-and-analyzing-the-results">Importing and analyzing the results<a class="anchor-link" href="#Importing-and-analyzing-the-results">&#182;</a></h2><p>Then come back here to load the results and continue the sensitivy analysis.
 Because our results file may not be in order, but contains the job number at the start of each line, we need to do a little manipulation to get the <code>output</code> array as needed</p>
 
 </div>
