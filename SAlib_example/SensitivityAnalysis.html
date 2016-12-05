@@ -11820,7 +11820,7 @@ Updates to demonstrate running array jobs on a cluster: Richard West, 2016</p>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">SALib.sample</span> <span class="k">import</span> <span class="n">morris</span> <span class="k">as</span> <span class="n">ms</span>
@@ -11845,7 +11845,7 @@ Updates to demonstrate running array jobs on a cluster: Richard West, 2016</p>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">morris_problem</span> <span class="o">=</span> <span class="p">{</span>
@@ -11884,7 +11884,7 @@ Updates to demonstrate running array jobs on a cluster: Richard West, 2016</p>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">number_of_trajectories</span> <span class="o">=</span> <span class="mi">1000</span>
@@ -11907,16 +11907,16 @@ Updates to demonstrate running array jobs on a cluster: Richard West, 2016</p>
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>The sample array is  (8000, 7)
 Here are the first 10 rows:
-    15.433     66.667     80.000     80.000      4.500      0.970      8.333
-    15.433     66.667     80.000     80.000      4.500      0.970     24.000
-    15.433     66.667     26.667     80.000      4.500      0.970     24.000
-    15.433     66.667     26.667     26.667      4.500      0.970     24.000
-    15.433     66.667     26.667     26.667      5.500      0.970     24.000
-     2.300     66.667     26.667     26.667      5.500      0.970     24.000
-     2.300     66.667     26.667     26.667      5.500      0.903     24.000
-     2.300    100.000     26.667     26.667      5.500      0.903     24.000
-     2.300     50.000     80.000     80.000      5.000      0.903     16.167
-     2.300     50.000     80.000     80.000      4.000      0.903     16.167
+    15.433     83.333     80.000     80.000      5.000      0.903     24.000
+    15.433     83.333     80.000     80.000      5.000      0.970     24.000
+    15.433     83.333     26.667     80.000      5.000      0.970     24.000
+    15.433     83.333     26.667     80.000      5.000      0.970      8.333
+    15.433     83.333     26.667     26.667      5.000      0.970      8.333
+    15.433     50.000     26.667     26.667      5.000      0.970      8.333
+    15.433     50.000     26.667     26.667      4.000      0.970      8.333
+     2.300     50.000     26.667     26.667      4.000      0.970      8.333
+     2.300     66.667     80.000     80.000      4.000      0.970      0.500
+     2.300     66.667     80.000     80.000      4.000      0.903      0.500
 </pre>
 </div>
 </div>
@@ -11937,7 +11937,7 @@ Here are the first 10 rows:
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[7]:</div>
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">savetxt</span><span class="p">(</span><span class="s2">&quot;parameter_values.txt&quot;</span><span class="p">,</span> <span class="n">sample</span><span class="p">)</span>
@@ -11955,55 +11955,15 @@ Here are the first 10 rows:
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Stop!">Stop!<a class="anchor-link" href="#Stop!">&#182;</a></h1><h2 id="Now-(pretend)-we-need-to-run-the-simulations-on-Discovery">Now (pretend) we need to run the simulations on Discovery<a class="anchor-link" href="#Now-(pretend)-we-need-to-run-the-simulations-on-Discovery">&#182;</a></h2><p>To run this on Discovery, you will need to copy the <code>parameter_values.txt</code> and <code>results.txt</code> files on to Discovery, along with a Python script file (eg. <code>my_script.py</code>) that looks like the following cell.  Use an SCP or SFTP program, as described earlier in the tutorial.</p>
+<h1 id="Stop!">Stop!<a class="anchor-link" href="#Stop!">&#182;</a></h1><h2 id="Now-(pretend)-we-need-to-run-the-simulations-on-Discovery">Now (pretend) we need to run the simulations on Discovery<a class="anchor-link" href="#Now-(pretend)-we-need-to-run-the-simulations-on-Discovery">&#182;</a></h2><p>To run this on Discovery, you will need to copy the <code>parameter_values.txt</code> and <code>results.txt</code> files on to Discovery, along with a Python script file (eg. <code>my_script.py</code>) that looks like the cell a few lines below.  Use an SCP or SFTP program, as described earlier in the tutorial.</p>
+<p>This is how many simulations we will need to run:</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[8]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># This is a script that you should run on Discovery, as part of a Slurm Array job.</span>
-<span class="c1"># Don&#39;t just run this cell in the notebook.</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">from</span> <span class="nn">model</span> <span class="k">import</span> <span class="n">max_vehicle_power</span>
-<span class="n">big_parameter_list</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s2">&quot;parameter_values.txt&quot;</span><span class="p">)</span>
-<span class="n">job_number</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;SLURM_ARRAY_TASK_ID&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s1">&#39;0&#39;</span><span class="p">))</span>
-<span class="n">parameters</span> <span class="o">=</span> <span class="n">big_parameter_list</span><span class="p">[</span><span class="n">job_number</span><span class="p">]</span>
-<span class="n">parameters</span>
-<span class="n">result</span> <span class="o">=</span> <span class="n">max_vehicle_power</span><span class="p">(</span><span class="o">*</span><span class="n">parameters</span><span class="p">)</span>
-<span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">Because we don&#39;t know what order the jobs will complete in,</span>
-<span class="sd">the results may be written out of order!</span>
-<span class="sd">To deal with this, we will write the job number in the results file</span>
-<span class="sd">as well as the result:</span>
-<span class="sd">&quot;&quot;&quot;</span>
-<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;results.txt&quot;</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">result_file</span><span class="p">:</span> <span class="c1"># &#39;a&#39; is append mode, and will add to the file.</span>
-    <span class="n">result_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">job_number</span><span class="p">,</span> <span class="n">result</span><span class="p">))</span> <span class="c1"># the &#39;\n&#39; is a new line</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Then create a <code>submit.sh</code> script to run it as an Array job to fill the <code>results.txt</code> file with results.
-This is how many jobs you will need:</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[9]:</div>
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="nb">len</span><span class="p">(</span><span class="n">sample</span><span class="p">)</span>
@@ -12017,7 +11977,7 @@ This is how many jobs you will need:</p>
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[9]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[7]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -12035,9 +11995,53 @@ This is how many jobs you will need:</p>
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>But realize that your Python script above expects the job number to start at zero, so you'll probably want something like</p>
+<p>...but the Slurm on Discovery seems to be configured with a maximum job array size around 1000. (We have got 1000 to work, and 8000 to fail). So we will run 1000 jobs, each of which runs 8 simulations.</p>
 
-<pre><code>    #SBATCH --array=0-7999%16</code></pre>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># This is a script that you should run on Discovery, as part of a Slurm Array job,</span>
+<span class="c1"># with 1000 jobs.</span>
+<span class="c1"># Don&#39;t just run this cell in the notebook.</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">model</span> <span class="k">import</span> <span class="n">max_vehicle_power</span>
+<span class="n">big_parameter_list</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s2">&quot;parameter_values.txt&quot;</span><span class="p">)</span>
+<span class="n">job_number</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;SLURM_ARRAY_TASK_ID&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s1">&#39;0&#39;</span><span class="p">))</span>
+<span class="k">assert</span> <span class="mi">0</span><span class="o">&lt;=</span><span class="n">job_number</span><span class="o">&lt;</span><span class="mi">1000</span><span class="p">,</span> <span class="s2">&quot;Job number should run from 0 to 999&quot;</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">8</span><span class="p">):</span>
+    <span class="n">parameter_number</span> <span class="o">=</span> <span class="p">(</span><span class="mi">8</span> <span class="o">*</span> <span class="n">job_number</span><span class="p">)</span> <span class="o">+</span> <span class="n">i</span>
+    <span class="n">parameters</span> <span class="o">=</span> <span class="n">big_parameter_list</span><span class="p">[</span><span class="n">job_number</span><span class="p">]</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">max_vehicle_power</span><span class="p">(</span><span class="o">*</span><span class="n">parameters</span><span class="p">)</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Because we don&#39;t know what order the jobs will complete in,</span>
+<span class="sd">    the results may be written out of order!</span>
+<span class="sd">    To deal with this, we will write the job number in the results file</span>
+<span class="sd">    as well as the result:</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;results.txt&quot;</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">result_file</span><span class="p">:</span> <span class="c1"># &#39;a&#39; is append mode, and will add to the file.</span>
+        <span class="n">result_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">job_number</span><span class="p">,</span> <span class="n">result</span><span class="p">))</span> <span class="c1"># the &#39;\n&#39; is a new line</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Then create a <code>submit.sh</code> script to run it as an Array job, to fill the <code>results.txt</code> file with results.
+But realize that your Python script above expects the job number to start at zero, so you'll probably want something like</p>
+
+<pre><code>    #SBATCH --array=0-999%16</code></pre>
 <p>in your batch file.
 Once your jobs have all finished, copy the <code>results.txt</code> back to your computer and put it alongside this Notebook.</p>
 
@@ -12124,6 +12128,19 @@ Because our results file may not be in order, but contains the job number at the
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
 <span class="n">mp</span><span class="o">.</span><span class="n">horizontal_bar_plot</span><span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">Si</span><span class="p">,</span> <span class="n">param_dict</span><span class="o">=</span><span class="p">{})</span>
 <span class="n">mp</span><span class="o">.</span><span class="n">covariance_plot</span><span class="p">(</span><span class="n">ax2</span><span class="p">,</span> <span class="n">Si</span><span class="p">,</span> <span class="p">{})</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
 </pre></div>
 
 </div>

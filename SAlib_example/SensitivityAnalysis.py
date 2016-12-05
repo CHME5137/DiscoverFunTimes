@@ -43,7 +43,7 @@ from model import cost_of_vehicle_to_grid, compute_profit, annualized_capital_co
 
 # ### Import the package
 
-# In[4]:
+# In[3]:
 
 from SALib.sample import morris as ms
 from SALib.analyze import morris as ma
@@ -54,7 +54,7 @@ from SALib.plotting import morris as mp
 # 
 # In the code below, a problem file is used to define the variables we wish to explore
 
-# In[5]:
+# In[4]:
 
 morris_problem = {
     # There are six variables
@@ -79,7 +79,7 @@ morris_problem = {
 # 
 # We then generate a sample using the `morris.sample()` procedure from the SALib package.
 
-# In[6]:
+# In[5]:
 
 number_of_trajectories = 1000
 sample = ms.sample(morris_problem, number_of_trajectories, num_levels=4, grid_jump=2)
@@ -91,7 +91,7 @@ for j in range(10):
 
 # Now we're going to save the parameters to a file, so we can run the jobs separately not in this notebook.
 
-# In[7]:
+# In[6]:
 
 np.savetxt("parameter_values.txt", sample)
 with open("results.txt", 'w') as result_file:  # 'w' is write mode, and will clear the file.
@@ -101,41 +101,46 @@ with open("results.txt", 'w') as result_file:  # 'w' is write mode, and will cle
 # # Stop!  
 # ## Now (pretend) we need to run the simulations on Discovery
 # 
-# To run this on Discovery, you will need to copy the `parameter_values.txt` and `results.txt` files on to Discovery, along with a Python script file (eg. `my_script.py`) that looks like the following cell.  Use an SCP or SFTP program, as described earlier in the tutorial.
+# To run this on Discovery, you will need to copy the `parameter_values.txt` and `results.txt` files on to Discovery, along with a Python script file (eg. `my_script.py`) that looks like the cell a few lines below.  Use an SCP or SFTP program, as described earlier in the tutorial.
+# 
+# This is how many simulations we will need to run:
+
+# In[7]:
+
+len(sample)
+
+
+# ...but the Slurm on Discovery seems to be configured with a maximum job array size around 1000. (We have got 1000 to work, and 8000 to fail). So we will run 1000 jobs, each of which runs 8 simulations.
 
 # In[8]:
 
-# This is a script that you should run on Discovery, as part of a Slurm Array job.
+# This is a script that you should run on Discovery, as part of a Slurm Array job,
+# with 1000 jobs.
 # Don't just run this cell in the notebook.
 import numpy as np
 import os
 from model import max_vehicle_power
 big_parameter_list = np.loadtxt("parameter_values.txt")
 job_number = int(os.getenv('SLURM_ARRAY_TASK_ID', default='0'))
-parameters = big_parameter_list[job_number]
-parameters
-result = max_vehicle_power(*parameters)
-"""
-Because we don't know what order the jobs will complete in,
-the results may be written out of order!
-To deal with this, we will write the job number in the results file
-as well as the result:
-"""
-with open("results.txt", 'a') as result_file: # 'a' is append mode, and will add to the file.
-    result_file.write('{} {}\n'.format(job_number, result)) # the '\n' is a new line
+assert 0<=job_number<1000, "Job number should run from 0 to 999"
+for i in range(8):
+    parameter_number = (8 * job_number) + i
+    parameters = big_parameter_list[job_number]
+    result = max_vehicle_power(*parameters)
+    """
+    Because we don't know what order the jobs will complete in,
+    the results may be written out of order!
+    To deal with this, we will write the job number in the results file
+    as well as the result:
+    """
+    with open("results.txt", 'a') as result_file: # 'a' is append mode, and will add to the file.
+        result_file.write('{} {}\n'.format(job_number, result)) # the '\n' is a new line
 
 
-# Then create a `submit.sh` script to run it as an Array job to fill the `results.txt` file with results.
-# This is how many jobs you will need:
-
-# In[9]:
-
-len(sample)
-
-
+# Then create a `submit.sh` script to run it as an Array job, to fill the `results.txt` file with results.
 # But realize that your Python script above expects the job number to start at zero, so you'll probably want something like
 # ```
-#     #SBATCH --array=0-7999%16
+#     #SBATCH --array=0-999%16
 # ```
 # in your batch file.
 # Once your jobs have all finished, copy the `results.txt` back to your computer and put it alongside this Notebook.
@@ -180,6 +185,11 @@ for name, s1, st, mean in zip(morris_problem['names'], Si['mu'], Si['mu_star'], 
 fig, (ax1, ax2) = plt.subplots(1,2)
 mp.horizontal_bar_plot(ax1, Si, param_dict={})
 mp.covariance_plot(ax2, Si, {})
+
+
+# In[ ]:
+
+
 
 
 # In[ ]:
