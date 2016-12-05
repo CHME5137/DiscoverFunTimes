@@ -1,15 +1,16 @@
 Okay, let us say we want to use a node interactively:
 
-
 If you want to take advantage of Discovery while also using a graphical software (such as `GaussView`), you need to start by logging in with X11 forwarding:
 
 	$ ssh -X surname.f@discovery2.neu.edu
 
 You can find more details about loading X11 [here](01-logging-in.md).
 
-We do not want to do anything resource intensive on the log in nodes (discovery2 and discovery4) as this will cause everyone difficulties, and ruffle some jimmies.
+Remember how we do not want to do anything resource intensive on the log in nodes (discovery2 and discovery4)?
+Doing so would cause everyone difficulties, and ruffle some jimmies.
+Requesting an interactive job and logging in to a compute node is the solution.
 
-We need to request a compute node.
+First we need to request a compute node to use.
 
 	$ salloc -N 1  --exclusive -p ht-10g
 	salloc: Granted job allocation 649056
@@ -62,4 +63,4 @@ Hangup
 ```
 
 ---
-Next: 7. Submitting an array of jobs.
+Next: 7. [Submitting an array of jobs.](07-arrays.md)
