@@ -7,7 +7,8 @@ If you want to take advantage of Discovery while also using a graphical software
 
 You can find more details about loading X11 [here](01-logging-in.md).
 
-We do not want to do anything resource intensive on the log in nodes (discovery2 and discovery4) as this will cause everyone difficulties, and ruffle some jimmies. 
+Remember how we do not want to do anything resource intensive on the log in nodes (discovery2 and discovery4)? This will cause everyone difficulties, and ruffle some jimmies. 
+This is the solution.
 
 We need to request a compute node.
 
@@ -41,4 +42,4 @@ If I want to run `GaussView` (and have all the proper modules installed):
 
 (This is where you would find out that you need to use -Y instead of -X, but practice makes perfect!)
 
-Next: 7. Submitting an array of jobs.
+Next: 7. [Submitting an array of jobs.](07-arrays.md)

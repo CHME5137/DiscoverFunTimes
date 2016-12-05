@@ -6,5 +6,5 @@
 4. [Installing additional Python packages](04-python-packages.md)
 5. [Submitting a batch job](05-slurm.md)
 6. [Running an interactive job](06-interactive.md)
-7. Running an array of jobs
+7. [Running an array of jobs](07-arrays.md)
 8. Running a jupyter notebook?
