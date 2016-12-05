@@ -68,7 +68,7 @@ Your `submit.sh` file should look something like this:
 	#SBATCH -o output.log
 	#SBATCH -p ser-par-10g
 
-	stdbuf -o0 -e0 python -u my_awesome_script.py
+	stdbuf -o0 -e0 python3 -u my_awesome_script.py
 
 You can then run the following command in your terminal window to submit the script:
 
