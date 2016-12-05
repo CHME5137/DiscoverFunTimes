@@ -30,30 +30,7 @@ from model import cost_of_vehicle_to_grid, compute_profit, annualized_capital_co
 # %load model.py
 
 
-# ### One-at-time approach
-# 
-# First, we're going to try the **one-at-a-time** (OAT) approach.
-# 
-# Find the sliders in the example which are set up for the parameters of the Nissan Leaf.
-
-# In[3]:
-
-@interact(connector=widgets.FloatSlider(value=2.3, min=2.3, max=22, step=0.5), 
-          battery_size=widgets.FloatSlider(value=24, min=10, max=100, step=5), 
-          distance_driven=widgets.FloatSlider(value=0, min=0, max=100, step=5), 
-          range_buffer=widgets.FloatSlider(value=0, min=0, max=100, step=10),
-          dispatch_time=widgets.FloatSlider(value=1.4, min=0.5, max=24, step=0.5))
-def plot_power(connector, battery_size, distance_driven, range_buffer, dispatch_time):
-    power = max_vehicle_power(connector,
-                      battery_size,
-                      distance_driven,
-                      range_buffer,
-                      dispatch_time
-                      )
-    return print("The maximum power is {} kW".format(round(power, 2)))
-
-
-# # Using SALib to run a Sensitivity Analysis
+# ## Using SALib to run a Sensitivity Analysis
 # 
 # As we saw earlier, SALib is a **free** **open-source** **Python** library which you can install by running the command
 # 
@@ -112,6 +89,8 @@ for j in range(10):
     print(' '.join(['{:10.3f}'.format(i) for i in sample[j]]))
 
 
+# Now we're going to save the parameters to a file, so we can run the jobs separately not in this notebook.
+
 # In[7]:
 
 np.savetxt("parameter_values.txt", sample)
@@ -119,11 +98,15 @@ with open("results.txt", 'w') as result_file:  # 'w' is write mode, and will cle
     result_file.write('')
 
 
-# Now to run this on Discovery, make a script file that looks like the following cell.
-# We don't know what order the jobs will complete in, so we record the job number in the output file as well as the result.
+# # Stop!  
+# ## Now (pretend) we need to run the simulations on Discovery
+# 
+# To run this on Discovery, you will need to copy the `parameter_values.txt` and `results.txt` files on to Discovery, along with a Python script file (eg. `my_script.py`) that looks like the following cell.  Use an SCP or SFTP program, as described earlier in the tutorial.
 
 # In[8]:
 
+# This is a script that you should run on Discovery, as part of a Slurm Array job.
+# Don't just run this cell in the notebook.
 import numpy as np
 import os
 from model import max_vehicle_power
@@ -132,11 +115,17 @@ job_number = int(os.getenv('SLURM_ARRAY_TASK_ID', default='0'))
 parameters = big_parameter_list[job_number]
 parameters
 result = max_vehicle_power(*parameters)
+"""
+Because we don't know what order the jobs will complete in,
+the results may be written out of order!
+To deal with this, we will write the job number in the results file
+as well as the result:
+"""
 with open("results.txt", 'a') as result_file: # 'a' is append mode, and will add to the file.
     result_file.write('{} {}\n'.format(job_number, result)) # the '\n' is a new line
 
 
-# Run it as an Array job to fill the `results.txt` file with results.
+# Then create a `submit.sh` script to run it as an Array job to fill the `results.txt` file with results.
 # This is how many jobs you will need:
 
 # In[9]:
@@ -144,6 +133,14 @@ with open("results.txt", 'a') as result_file: # 'a' is append mode, and will add
 len(sample)
 
 
+# But realize that your Python script above expects the job number to start at zero, so you'll probably want something like
+# ```
+#     #SBATCH --array=0-7999%16
+# ```
+# in your batch file.
+# Once your jobs have all finished, copy the `results.txt` back to your computer and put it alongside this Notebook.
+
+# ## Importing and analyzing the results 
 # Then come back here to load the results and continue the sensitivy analysis.
 # Because our results file may not be in order, but contains the job number at the start of each line, we need to do a little manipulation to get the `output` array as needed
 
