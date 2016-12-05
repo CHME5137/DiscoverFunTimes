@@ -31,3 +31,5 @@ we can add `%a` to the filenames in the `submit.sh` header to prevent two parall
 	#SBATCH -e error_%a.log
 
 Try it out!
+
+Clone this repository to your local computer, then look at [the Jupyter notebook](SAlib_example/SensitivityAnalysis.ipynb) in the `SAlib_example` folder to work through an example using an array job on Discovery to do a sensitivity analysis.
