@@ -11995,19 +11995,20 @@ Here are the first 10 rows:
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>...but the Slurm on Discovery seems to be configured with a maximum job array size around 1000. (We have got 1000 to work, and 8000 to fail). So we will run 1000 jobs, each of which runs 8 simulations.</p>
+<p>...but the Slurm on Discovery seems to be configured with a maximum job array size around 1000. (We have got 1000 to work, and 8000 to fail). So we will run 1000 jobs, each of which runs 8 simulations.
+(To update the following cell, uncomment the first line and execute it)</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[8]:</div>
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># This is a script that you should run on Discovery, as part of a Slurm Array job,</span>
-<span class="c1"># with 1000 jobs.</span>
-<span class="c1"># Don&#39;t just run this cell in the notebook.</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># %load script.py</span>
+<span class="c1"># This is a script that you should run on Discovery,</span>
+<span class="c1"># as part of a Slurm Array job, with 1000 jobs.</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">from</span> <span class="nn">model</span> <span class="k">import</span> <span class="n">max_vehicle_power</span>
@@ -12016,7 +12017,7 @@ Here are the first 10 rows:
 <span class="k">assert</span> <span class="mi">0</span><span class="o">&lt;=</span><span class="n">job_number</span><span class="o">&lt;</span><span class="mi">1000</span><span class="p">,</span> <span class="s2">&quot;Job number should run from 0 to 999&quot;</span>
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">8</span><span class="p">):</span>
     <span class="n">parameter_number</span> <span class="o">=</span> <span class="p">(</span><span class="mi">8</span> <span class="o">*</span> <span class="n">job_number</span><span class="p">)</span> <span class="o">+</span> <span class="n">i</span>
-    <span class="n">parameters</span> <span class="o">=</span> <span class="n">big_parameter_list</span><span class="p">[</span><span class="n">job_number</span><span class="p">]</span>
+    <span class="n">parameters</span> <span class="o">=</span> <span class="n">big_parameter_list</span><span class="p">[</span><span class="n">parameter_number</span><span class="p">]</span>
     <span class="n">result</span> <span class="o">=</span> <span class="n">max_vehicle_power</span><span class="p">(</span><span class="o">*</span><span class="n">parameters</span><span class="p">)</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Because we don&#39;t know what order the jobs will complete in,</span>
@@ -12025,7 +12026,7 @@ Here are the first 10 rows:
 <span class="sd">    as well as the result:</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;results.txt&quot;</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">result_file</span><span class="p">:</span> <span class="c1"># &#39;a&#39; is append mode, and will add to the file.</span>
-        <span class="n">result_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">job_number</span><span class="p">,</span> <span class="n">result</span><span class="p">))</span> <span class="c1"># the &#39;\n&#39; is a new line</span>
+        <span class="n">result_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">parameter_number</span><span class="p">,</span> <span class="n">result</span><span class="p">))</span> <span class="c1"># the &#39;\n&#39; is a new line</span>
 </pre></div>
 
 </div>
@@ -12041,7 +12042,7 @@ Here are the first 10 rows:
 <p>Then create a <code>submit.sh</code> script to run it as an Array job, to fill the <code>results.txt</code> file with results.
 But realize that your Python script above expects the job number to start at zero, so you'll probably want something like</p>
 
-<pre><code>    #SBATCH --array=0-999%16</code></pre>
+<pre><code>    #SBATCH --array=0-999%40</code></pre>
 <p>in your batch file.
 Once your jobs have all finished, copy the <code>results.txt</code> back to your computer and put it alongside this Notebook.</p>
 

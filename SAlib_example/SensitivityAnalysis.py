@@ -111,12 +111,13 @@ len(sample)
 
 
 # ...but the Slurm on Discovery seems to be configured with a maximum job array size around 1000. (We have got 1000 to work, and 8000 to fail). So we will run 1000 jobs, each of which runs 8 simulations.
+# (To update the following cell, uncomment the first line and execute it)
 
-# In[8]:
+# In[ ]:
 
-# This is a script that you should run on Discovery, as part of a Slurm Array job,
-# with 1000 jobs.
-# Don't just run this cell in the notebook.
+# %load script.py
+# This is a script that you should run on Discovery,
+# as part of a Slurm Array job, with 1000 jobs.
 import numpy as np
 import os
 from model import max_vehicle_power
@@ -125,7 +126,7 @@ job_number = int(os.getenv('SLURM_ARRAY_TASK_ID', default='0'))
 assert 0<=job_number<1000, "Job number should run from 0 to 999"
 for i in range(8):
     parameter_number = (8 * job_number) + i
-    parameters = big_parameter_list[job_number]
+    parameters = big_parameter_list[parameter_number]
     result = max_vehicle_power(*parameters)
     """
     Because we don't know what order the jobs will complete in,
@@ -134,13 +135,13 @@ for i in range(8):
     as well as the result:
     """
     with open("results.txt", 'a') as result_file: # 'a' is append mode, and will add to the file.
-        result_file.write('{} {}\n'.format(job_number, result)) # the '\n' is a new line
+        result_file.write('{} {}\n'.format(parameter_number, result)) # the '\n' is a new line
 
 
 # Then create a `submit.sh` script to run it as an Array job, to fill the `results.txt` file with results.
 # But realize that your Python script above expects the job number to start at zero, so you'll probably want something like
 # ```
-#     #SBATCH --array=0-999%16
+#     #SBATCH --array=0-999%40
 # ```
 # in your batch file.
 # Once your jobs have all finished, copy the `results.txt` back to your computer and put it alongside this Notebook.
