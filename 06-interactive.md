@@ -6,14 +6,9 @@ If you want to take advantage of Discovery while also using a graphical software
 
 You can find more details about loading X11 [here](01-logging-in.md).
 
-<<<<<<< HEAD
-Remember how we do not want to do anything resource intensive on the log in nodes (discovery2 and discovery4)? This will cause everyone difficulties, and ruffle some jimmies.
-This is the solution.
-=======
 Remember how we do not want to do anything resource intensive on the log in nodes (discovery2 and discovery4)?
 Doing so would cause everyone difficulties, and ruffle some jimmies.
 Requesting an interactive job and logging in to a compute node is the solution.
->>>>>>> b76ba0a11223702857163c37e0d960898ff7a6cc
 
 First we need to request a compute node to use.
 
@@ -34,21 +29,15 @@ For example, it will look like this:
 	         JOBID PARTITION     NAME        USER ST       TIME  NODES NODELIST(REASON)
 	        649056    ht-10g     bash  <username>  R       0:08      1 compute-0-006
 
-<<<<<<< HEAD
-	             JOBID PARTITION     NAME     USER ST       TIME  NODES NODELIST(REASON)
-	            649056    ht-10g     bash <user-name>  R       0:08      1 compute-0-006
 
 Then log in to your shiny new compute node (if you did not log in with a `-X`, `$ exit`, then log in again)!
-=======
 This tells us our job 649056 is running on node compute-0-006.
 Then log in to your shiny new compute node!
->>>>>>> b76ba0a11223702857163c37e0d960898ff7a6cc
 
 	$ ssh -X compute-0-006
 
 Sometimes, it may prompt you for a password. Just Ctrl-C and try to `ssh -X <compute-node>` again.
 
-<<<<<<< HEAD
 Now you're on an interactive session - now let's revisit matplotlib!
 
 	[<user_name>@compute-0-006 ~]$
@@ -97,7 +86,9 @@ OK, but how do we see it?
 In [5]: plt.show()
 ```
 
-Don't see anything? If you had installed an X11 window system and used X11 forwarding (`ssh -X`) then you would have a local window appear. But when running a script on a remote computer it's usually more helpful to just save the figure to a file and retrieve it later:
+Don't see anything? If you had installed an X11 window system and used X11 forwarding (`ssh -X`) then you would have a local window appear.
+(This is where you would find out that you need to use -Y instead of -X, but practice makes perfect!)
+But when running a script on a remote computer it's usually more helpful to just save the figure to a file and retrieve it later:
 
 ```python
 In [6]: plt.savefig("my_figure.pdf")
@@ -113,20 +104,6 @@ my_figure.pdf
 ```
 
 OK - it's there!  You can retrieve it using some SCP or SFTP commands, or preferably a client with a nice GUI (my favorite is currently [Forklift](http://www.binarynights.com/forklift/) but there are many good free ones to choose from. I used [Cyberduck](https://cyberduck.io/) for a while.)
-=======
-Now you're on an interactive session!
-
-	[<username>@compute-0-006 ~]$
-
-For example, if I want to run `GaussView` (and have all the proper modules installed):
-
-	$ gview
->>>>>>> b76ba0a11223702857163c37e0d960898ff7a6cc
-
-(This is where you would find out that you need to use -Y instead of -X, but practice makes perfect!)
-
-This is where you would do interactive python work eg. in ipython
-(see [chapter 4](04-python-packages.md)).
 
 Once you are done with your interactive session, log out of the compute node
 by typing `exit` and then release the allocation using `scancel <jobID>`, e.g.:
