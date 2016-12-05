@@ -10,7 +10,18 @@ the necessarry `module load` commands to your `.bashrc` file.
 
 Detailed instructions for this version of Slurm are [here](https://slurm.schedmd.com/archive/slurm-14.11.11/) should you need them, and the Discovery instructions are [here](http://nuweb12.neu.edu/rc/?page_id=18).
 
-Let's assume that we have a python script, called `my_awesome_script.py` that we want to run. If we want to have slurm manage the job for us, we need to create a submission script, commonly titled `submit.sh`.
+Let's assume that we have a python script, called `my_awesome_script.py` that we want to run. It might look something like this:
+
+```python
+import random
+print("CHME5137 is even more awesome than CHME{}".format(random.randint(3000,9999)))
+print("This will show up in your output.log file")
+import sys
+print("This will show up in your error.log file",file=sys.stderr)
+raise Exception("This error message will also show up in your error.log file")
+```
+
+If we want to have slurm manage the job for us, we need to create a submission script, commonly titled `submit.sh`.
 
 Here are some common headers for a `submit.sh` file:
 
