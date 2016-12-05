@@ -144,66 +144,7 @@ Now that we have got it working, you will want to add the line:
 to the end of your `.bashrc` file like we did the `module load` statements
 in the previous chapter, so that you don't need to do it each time you log in.
 
-
-## Using matplotlib
-We managed to install matplotlib, but can we use it?
-*This section of tutorial should be moved to after we've learned to run interactive sessions on compute nodes, so we don't do it on the login node*.
-First load `ipython` then try `from matplotlib import pyplot as plt` as we are used to doing.
-
-```
-$ ipython
-Python 3.5.2 (default, Sep 19 2016, 11:10:34)
-Type "copyright", "credits" or "license" for more information.
-
-IPython 5.1.0 -- An enhanced Interactive Python.
-?         -> Introduction and overview of IPython's features.
-%quickref -> Quick reference.
-help      -> Python's own help system.
-object?   -> Details about 'object', use 'object??' for extra details.
-
-In [1]: from matplotlib import pyplot as plt
-```
-
-This will give a long error message, with the clue `# If this fails your Python may not be configured for Tk`.  Googling this will eventually lead you to try the following
-, but I'll save you some time. You have to `exit()` your `ipython` session and start a new one (`$ ipython`):
-
- ```python
-In [1]: import matplotlib
-
-In [2]: matplotlib.use('Agg')
-
-In [3]: from matplotlib import pyplot as plt
-```
-
-OK so far - no errors!  What we did is change the 'back end' that matplotlib uses, because Discovery is not set up with the default 'Tk', but does have 'Agg' ([don't ask me what these are](http://lmgtfy.com/?q=what+are+Tk+and+Agg)). You'll have to do this in any scripts that use matplotlib. Now let's try to make a plot.
-
-```python
-In [4]: plt.plot(range(5))
-Out[4]: [<matplotlib.lines.Line2D at 0x7fc098b02a90>]
-```
-
-OK, but how do we see it?
-
-```python
-In [5]: plt.show()
-```
-
-Don't see anything? If you had installed an X11 window system and used X11 forwarding (`ssh -X`) then maybe you would have a local window appear. But when running a script on a remote computer it's usually more helpful to just save the figure to a file and retrieve it later:
-
-```python
-In [6]: plt.savefig("my_figure.pdf")
-
-In [7]: exit()
-```
-
-Now look for the file:
-
-```
-$ ls *.pdf
-my_figure.pdf
-```
-
-OK - it's there!  You can retrieve it using some SCP or SFTP commands, or preferably a client with a nice GUI (my favorite is currently [Forklift](http://www.binarynights.com/forklift/) but there are many good free ones to choose from. I used [Cyberduck](https://cyberduck.io/) for a while.)
+We will revisit matplotlib in [6. Running an interactive job](06-interactive.md)
 
 ---
 Next: [5. Submitting a batch job with SLURM](05-slurm.md)
