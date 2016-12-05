@@ -11809,7 +11809,7 @@ Updates to demonstrate running array jobs on a cluster: Richard West, 2016</p>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="nd">@interact</span><span class="p">(</span><span class="n">connector</span><span class="o">=</span><span class="n">widgets</span><span class="o">.</span><span class="n">FloatSlider</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="mf">2.3</span><span class="p">,</span> <span class="nb">min</span><span class="o">=</span><span class="mf">2.3</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mi">22</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mf">0.5</span><span class="p">),</span> 
@@ -11846,41 +11846,15 @@ Updates to demonstrate running array jobs on a cluster: Richard West, 2016</p>
 </div>
 
 </div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[6]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">monte_carlo_large</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
-    <span class="n">dispatch_time</span> <span class="o">=</span> <span class="mi">4</span>
-    <span class="n">y</span> <span class="o">=</span> <span class="n">max_vehicle_power</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="mi">6</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="mi">5</span><span class="p">])</span>
-    <span class="k">return</span> <span class="n">y</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Using-SALib-to-run-a-Sensitivity-Analysis">Using SALib to run a Sensitivity Analysis<a class="anchor-link" href="#Using-SALib-to-run-a-Sensitivity-Analysis">&#182;</a></h1><p>SALib is a <strong>free</strong> <strong>open-source</strong> <strong>Python</strong> library</p>
-<p>If you use Python, you can install it by running the command</p>
+<h1 id="Using-SALib-to-run-a-Sensitivity-Analysis">Using SALib to run a Sensitivity Analysis<a class="anchor-link" href="#Using-SALib-to-run-a-Sensitivity-Analysis">&#182;</a></h1><p>As we saw earlier, SALib is a <strong>free</strong> <strong>open-source</strong> <strong>Python</strong> library which you can install by running the command</p>
 <div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">SALib</span>
 </pre></div>
-<p><a href="http://salib.readthedocs.org/">Documentation</a> is available online and you can also view the code on <a href="http://salib.github.io/SALib/">Github</a>.</p>
-<p>The library includes:</p>
-<ul>
-<li>Sobol Sensitivity Analysis (<a href="http://www.sciencedirect.com/science/article/pii/S0378475400002706">Sobol 2001</a>, <a href="http://www.sciencedirect.com/science/article/pii/S0010465502002801">Saltelli 2002</a>, <a href="http://www.sciencedirect.com/science/article/pii/S0010465509003087">Saltelli et al. 2010</a>)</li>
-<li>Method of Morris, including groups and optimal trajectories (<a href="http://www.tandfonline.com/doi/abs/10.1080/00401706.1991.10484804">Morris 1991</a>, <a href="http://www.sciencedirect.com/science/article/pii/S1364815206002805">Campolongo et al. 2007</a>)</li>
-<li>Fourier Amplitude Sensitivity Test (FAST) (<a href="http://scitation.aip.org/content/aip/journal/jcp/59/8/10.1063/1.1680571">Cukier et al. 1973</a>, <a href="http://amstat.tandfonline.com/doi/abs/10.1080/00401706.1999.10485594">Saltelli et al. 1999</a>)</li>
-<li>Delta Moment-Independent Measure (<a href="http://www.sciencedirect.com/science/article/pii/S0951832006000883">Borgonovo 2007</a>, <a href="http://www.sciencedirect.com/science/article/pii/S0377221712008995">Plischke et al. 2013</a>)</li>
-<li>Derivative-based Global Sensitivity Measure (DGSM) (<a href="http://www.sciencedirect.com/science/article/pii/S0378475409000354">Sobol and Kucherenko 2009</a>)</li>
-<li>Fractional Factorial Sensitivity Analysis (<a href="http://www.wiley.com/WileyCDA/WileyTitle/productCd-0470059974.html">Saltelli et al. 2008</a>)</li>
-</ul>
+<p><a href="http://salib.readthedocs.org/">Documentation</a> is available online.</p>
 
 </div>
 </div>
@@ -11896,7 +11870,7 @@ Updates to demonstrate running array jobs on a cluster: Richard West, 2016</p>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[7]:</div>
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">SALib.sample</span> <span class="k">import</span> <span class="n">morris</span> <span class="k">as</span> <span class="n">ms</span>
@@ -11921,7 +11895,7 @@ Updates to demonstrate running array jobs on a cluster: Richard West, 2016</p>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[8]:</div>
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">morris_problem</span> <span class="o">=</span> <span class="p">{</span>
@@ -11960,7 +11934,7 @@ Updates to demonstrate running array jobs on a cluster: Richard West, 2016</p>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[10]:</div>
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">number_of_trajectories</span> <span class="o">=</span> <span class="mi">1000</span>
@@ -11983,18 +11957,106 @@ Updates to demonstrate running array jobs on a cluster: Richard West, 2016</p>
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>The sample array is  (8000, 7)
 Here are the first 10 rows:
-    22.000     83.333     53.333      0.000      4.500      0.970      0.500
-    22.000     83.333     53.333      0.000      5.500      0.970      0.500
-    22.000     83.333     53.333      0.000      5.500      0.903      0.500
-     8.867     83.333     53.333      0.000      5.500      0.903      0.500
-     8.867     50.000     53.333      0.000      5.500      0.903      0.500
-     8.867     50.000     53.333     53.333      5.500      0.903      0.500
-     8.867     50.000     53.333     53.333      5.500      0.903     16.167
-     8.867     50.000      0.000     53.333      5.500      0.903     16.167
-    22.000     50.000     80.000     80.000      5.000      0.870     24.000
-    22.000     50.000     26.667     80.000      5.000      0.870     24.000
+    15.433     66.667     80.000     80.000      4.500      0.970      8.333
+    15.433     66.667     80.000     80.000      4.500      0.970     24.000
+    15.433     66.667     26.667     80.000      4.500      0.970     24.000
+    15.433     66.667     26.667     26.667      4.500      0.970     24.000
+    15.433     66.667     26.667     26.667      5.500      0.970     24.000
+     2.300     66.667     26.667     26.667      5.500      0.970     24.000
+     2.300     66.667     26.667     26.667      5.500      0.903     24.000
+     2.300    100.000     26.667     26.667      5.500      0.903     24.000
+     2.300     50.000     80.000     80.000      5.000      0.903     16.167
+     2.300     50.000     80.000     80.000      4.000      0.903     16.167
 </pre>
 </div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">savetxt</span><span class="p">(</span><span class="s2">&quot;parameter_values.txt&quot;</span><span class="p">,</span> <span class="n">sample</span><span class="p">)</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;results.txt&quot;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">result_file</span><span class="p">:</span>  <span class="c1"># &#39;w&#39; is write mode, and will clear the file.</span>
+    <span class="n">result_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Now to run this on Discovery, make a script file that looks like the following cell.
+We don't know what order the jobs will complete in, so we record the job number in the output file as well as the result.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">model</span> <span class="k">import</span> <span class="n">max_vehicle_power</span>
+<span class="n">big_parameter_list</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s2">&quot;parameter_values.txt&quot;</span><span class="p">)</span>
+<span class="n">job_number</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;SLURM_ARRAY_TASK_ID&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s1">&#39;0&#39;</span><span class="p">))</span>
+<span class="n">parameters</span> <span class="o">=</span> <span class="n">big_parameter_list</span><span class="p">[</span><span class="n">job_number</span><span class="p">]</span>
+<span class="n">parameters</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">max_vehicle_power</span><span class="p">(</span><span class="o">*</span><span class="n">parameters</span><span class="p">)</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;results.txt&quot;</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">result_file</span><span class="p">:</span> <span class="c1"># &#39;a&#39; is append mode, and will add to the file.</span>
+    <span class="n">result_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">job_number</span><span class="p">,</span> <span class="n">result</span><span class="p">))</span> <span class="c1"># the &#39;\n&#39; is a new line</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Run it as an Array job to fill the <code>results.txt</code> file with results.
+This is how many jobs you will need:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[9]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">len</span><span class="p">(</span><span class="n">sample</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[9]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>8000</pre>
+</div>
+
 </div>
 
 </div>
@@ -12006,7 +12068,37 @@ Here are the first 10 rows:
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Factor-Prioritisation">Factor Prioritisation<a class="anchor-link" href="#Factor-Prioritisation">&#182;</a></h3><p>We'll run a sensitivity analysis of the power module to see which is the most influential parameter.</p>
+<p>Then come back here to load the results and continue the sensitivy analysis.
+Because our results file may not be in order, but contains the job number at the start of each line, we need to do a little manipulation to get the <code>output</code> array as needed</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">results_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s2">&quot;results.txt&quot;</span><span class="p">)</span>
+<span class="n">results_dict</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">number</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">results_array</span><span class="p">:</span>
+    <span class="n">results_dict</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">number</span><span class="p">)]</span> <span class="o">=</span> <span class="n">value</span>
+<span class="n">results_dict</span>
+<span class="n">output</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">results_dict</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">results_dict</span><span class="p">))])</span>
+<span class="n">output</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Factor-Prioritisation">Factor Prioritisation<a class="anchor-link" href="#Factor-Prioritisation">&#182;</a></h3><p>We'll run a sensitivity analysis to see which is the most influential parameter.</p>
 <p>The results parameters are called <strong>mu</strong>, <strong>sigma</strong> and <strong>mu_star</strong>.</p>
 <ul>
 <li><strong>Mu</strong> is the mean effect caused by the input parameter being moved over its range.</li>
@@ -12019,40 +12111,16 @@ Here are the first 10 rows:
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[31]:</div>
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Run the sample through the monte carlo procedure of the power model</span>
-<span class="n">output</span> <span class="o">=</span> <span class="n">monte_carlo_large</span><span class="p">(</span><span class="n">sample</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
-<span class="c1"># Store the results for plotting of the analysis</span>
-<span class="n">Si</span> <span class="o">=</span> <span class="n">ma</span><span class="o">.</span><span class="n">analyze</span><span class="p">(</span><span class="n">morris_problem</span><span class="p">,</span> <span class="n">sample</span><span class="p">,</span> <span class="n">output</span><span class="p">,</span> <span class="n">print_to_console</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">Si</span> <span class="o">=</span> <span class="n">ma</span><span class="o">.</span><span class="n">analyze</span><span class="p">(</span><span class="n">morris_problem</span><span class="p">,</span> <span class="n">sample</span><span class="p">,</span> <span class="n">output</span><span class="p">,</span> <span class="n">print_to_console</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:20s}</span><span class="s2"> </span><span class="si">{:&gt;7s}</span><span class="s2"> </span><span class="si">{:&gt;7s}</span><span class="s2"> </span><span class="si">{:&gt;7s}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s2">&quot;Name&quot;</span><span class="p">,</span> <span class="s2">&quot;mu&quot;</span><span class="p">,</span> <span class="s2">&quot;mu_star&quot;</span><span class="p">,</span> <span class="s2">&quot;sigma&quot;</span><span class="p">))</span>
 <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">s1</span><span class="p">,</span> <span class="n">st</span><span class="p">,</span> <span class="n">mean</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">morris_problem</span><span class="p">[</span><span class="s1">&#39;names&#39;</span><span class="p">],</span> <span class="n">Si</span><span class="p">[</span><span class="s1">&#39;mu&#39;</span><span class="p">],</span> <span class="n">Si</span><span class="p">[</span><span class="s1">&#39;mu_star&#39;</span><span class="p">],</span> <span class="n">Si</span><span class="p">[</span><span class="s1">&#39;sigma&#39;</span><span class="p">]):</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:20s}</span><span class="s2"> </span><span class="si">{:=7.2f}</span><span class="s2"> </span><span class="si">{:=7.2f}</span><span class="s2"> </span><span class="si">{:=7.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">s1</span><span class="p">,</span> <span class="n">st</span><span class="p">,</span> <span class="n">mean</span><span class="p">))</span>
 </pre></div>
 
 </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>Name                      mu mu_star   sigma
-conn                    6.04    6.04    8.27
-batt                    2.01    2.01    1.95
-dist                 -  0.69    0.69    0.68
-range                -  0.67    0.67    0.68
-dri_eff                 0.23    0.23    0.35
-inv_eff                 0.23    0.23    0.27
-dispatch_time        -  9.11    9.11    8.90
-</pre>
-</div>
-</div>
-
 </div>
 </div>
 
@@ -12069,7 +12137,7 @@ dispatch_time        -  9.11    9.11    8.90
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[33]:</div>
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
@@ -12078,1219 +12146,6 @@ dispatch_time        -  9.11    9.11    8.90
 </pre></div>
 
 </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt output_prompt">Out[33]:</div>
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>&lt;matplotlib.collections.PathCollection at 0x11a5e5c88&gt;</pre>
-</div>
-
-</div>
-
-<div class="output_area"><div class="prompt"></div>
-
-
-<div class="output_png output_subarea ">
-<img src="data:image/png;base64,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
-NsXXpvS5cMLmOcAAAAAoXbZv/11VqlQr0rXJyUmaN+99ZWZmKisrSzt37tAHH8zWvn37lJBQU507
-36KKFSsM13J3AAAgAElEQVQGOeITvvvuGy1a9Jnq1auv7dt/V6tWrdWpU+dCj/P779s0adKL6tr1
-QbVo0TIEkQInHD16NMCuz5Q+FwYJMAAAAIrk888XqEOH64p0bbVq1XXHHfdo5sxXNXv223K5XJo+
-fZq6dXtEt912e5Aj9ffjj+s0atQwvfvuXFWtWk1paWm6777bValSJV11VYcCjfHNN8v11VdLFBcX
-rx9++J/uvff+kMYMSO7S5y1bNvvaEya8ROlzIVECDQAAgCJZv36tWrZsVeTrY2Ji1L17DyUk1FR0
-dEUZc1bIk19JmjXrNV1yyaWqWrWaL46rr75Ws2ZNL/AYF1/cXoMGDdftt98ll8sVqlABn++//59f
-6fO99z6gyy77h4MRlU4kwAAAAAV05MgR7d+/3/ffoUMpeZ577Ngx7d+/P8/jWVlZfmPt379fmZmZ
-eZ5/4MB+HT16tFjxB9O6dWvVvPm5xR5n6dIlatr0bM2Z86FSU1P122+/BiG6vKWnp2v16u/VuHET
-v/5GjRrrjz+2a/fu3SF9faAovKXP3g9bzjijLqXPRUQCDAAAUEAvvTRRZ53VwPffE0/0zPPc99+f
-rbPOapDn8dTUw35jnXVWA/31V97JV+vWLfT66zOKFX9e0tPT9dprr+iKK/6hZs3OVvv2bXz/XXFF
-OyUnJ+W6ZtGiBbr22o4Bxxsy5CnNnz/Xr69//15asuS/uc49fPiQEhPHqFat2po8eZo2b7bBeVN5
-+PPPncrMzFTlypX9+uPj3e1du3aE9PWBonj++URt3brF154w4SVVrlzFwYhKLxJgAACAciw9PV19
-+jymTZusJk+eojlz3lO9eg3UufMtmjfvM82f/7mqVaue65pdu3aqbt36ucY7duyYvv76K5155okV
-1pSUZK1cuUKnnXZarvM7d75FkZHuf5LGxcXrmmuKdk9xQaWkuFftK1WK9euPi4uXy+VSSkpySF+/
-vPjyyy915ZVX6PLL2+nmm6/X8uXLnA6p1Fq58n965ZWXfO377ntQl156uXMBlXJsggUAAFCOTZ8+
-Venp6Ro9epxq13ZvpnPzzbfq008/Vq1atQJe8+23y9WuXfuAx9avX6uYmBg1bXq2r2/NmlWKjY1V
-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
-RK5CYII=
-"
->
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="A-More-Complicated-Example">A More Complicated Example<a class="anchor-link" href="#A-More-Complicated-Example">&#182;</a></h2><p>Lets look at a more complicated example.  This now integrates the previous power module into a simple cost-benefit analysis.</p>
-<p>Trying to work out anything with all those sliders is pretty difficult.  We need to strip out the uneccesssary parameters and focus our efforts on the influential inputs.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[34]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="nd">@interact</span><span class="p">(</span><span class="n">battery_size</span><span class="o">=</span><span class="n">widgets</span><span class="o">.</span><span class="n">FloatSlider</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="mi">24</span><span class="p">,</span> <span class="nb">min</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mi">5</span><span class="p">),</span> 
-          <span class="n">battery_unit_cost</span><span class="o">=</span><span class="n">widgets</span><span class="o">.</span><span class="n">FloatSlider</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="mi">350</span><span class="p">,</span> <span class="nb">min</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mi">400</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mi">50</span><span class="p">),</span>
-          <span class="n">connector_power</span><span class="o">=</span><span class="n">widgets</span><span class="o">.</span><span class="n">FloatSlider</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="mf">2.3</span><span class="p">,</span> <span class="nb">min</span><span class="o">=</span><span class="mf">2.3</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mi">22</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mf">0.5</span><span class="p">),</span> 
-          <span class="n">lifetime_cycles</span><span class="o">=</span><span class="n">widgets</span><span class="o">.</span><span class="n">FloatSlider</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="mi">2000</span><span class="p">,</span> <span class="nb">min</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mi">10000</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mi">1000</span><span class="p">),</span>
-          <span class="n">depth_of_discharge</span><span class="o">=</span><span class="n">widgets</span><span class="o">.</span><span class="n">FloatSlider</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="nb">min</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mf">0.1</span><span class="p">),</span>
-          <span class="n">electricity_price</span><span class="o">=</span><span class="n">widgets</span><span class="o">.</span><span class="n">FloatSlider</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="nb">min</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mf">0.01</span><span class="p">),</span>
-          <span class="n">purchased_energy_cost</span><span class="o">=</span><span class="n">widgets</span><span class="o">.</span><span class="n">FloatSlider</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="nb">min</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mf">0.01</span><span class="p">),</span>
-          <span class="n">capacity_price</span><span class="o">=</span><span class="n">widgets</span><span class="o">.</span><span class="n">FloatSlider</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="mf">0.007</span><span class="p">,</span> <span class="nb">min</span><span class="o">=</span><span class="mf">0.001</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mf">0.001</span><span class="p">),</span>
-          <span class="n">round_trip_efficiency</span><span class="o">=</span><span class="n">widgets</span><span class="o">.</span><span class="n">FloatSlider</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="mf">0.73</span><span class="p">,</span> <span class="nb">min</span><span class="o">=</span><span class="mf">0.50</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mf">0.01</span><span class="p">),</span>
-          <span class="n">cost_of_v2g_equip</span><span class="o">=</span><span class="n">widgets</span><span class="o">.</span><span class="n">FloatSlider</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="mi">2000</span><span class="p">,</span> <span class="nb">min</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mi">5000</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mi">100</span><span class="p">),</span>
-          <span class="n">discount_rate</span><span class="o">=</span><span class="n">widgets</span><span class="o">.</span><span class="n">FloatSlider</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="mf">0.10</span><span class="p">,</span> <span class="nb">min</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mf">0.01</span><span class="p">),</span>
-          <span class="n">economic_lifetime</span><span class="o">=</span><span class="n">widgets</span><span class="o">.</span><span class="n">FloatSlider</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="nb">min</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
-          <span class="n">ratio_dispatch_to_contract</span><span class="o">=</span><span class="n">widgets</span><span class="o">.</span><span class="n">FloatSlider</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="mf">0.10</span><span class="p">,</span> <span class="nb">min</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mf">0.50</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mf">0.01</span><span class="p">),</span>
-          <span class="n">distance_driven</span><span class="o">=</span><span class="n">widgets</span><span class="o">.</span><span class="n">FloatSlider</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="nb">min</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mi">5</span><span class="p">),</span> 
-          <span class="n">range_buffer</span><span class="o">=</span><span class="n">widgets</span><span class="o">.</span><span class="n">FloatSlider</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="nb">min</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mi">10</span><span class="p">),</span>
-          <span class="n">hours_connected_per_day</span><span class="o">=</span><span class="n">widgets</span><span class="o">.</span><span class="n">FloatSlider</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span> <span class="nb">min</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mi">24</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mf">0.5</span><span class="p">))</span>
-<span class="k">def</span> <span class="nf">plot_profit</span><span class="p">(</span><span class="n">battery_size</span><span class="p">,</span>
-                <span class="n">battery_unit_cost</span><span class="p">,</span>
-                <span class="n">connector_power</span><span class="p">,</span>
-                <span class="n">lifetime_cycles</span><span class="p">,</span>
-                <span class="n">depth_of_discharge</span><span class="p">,</span>
-                <span class="n">electricity_price</span><span class="p">,</span>
-                <span class="n">purchased_energy_cost</span><span class="p">,</span>
-                <span class="n">capacity_price</span><span class="p">,</span>
-                <span class="n">round_trip_efficiency</span><span class="p">,</span>
-                <span class="n">cost_of_v2g_equip</span><span class="p">,</span>
-                <span class="n">discount_rate</span><span class="p">,</span>
-                <span class="n">economic_lifetime</span><span class="p">,</span>
-                <span class="n">distance_driven</span><span class="p">,</span>
-                <span class="n">range_buffer</span><span class="p">,</span>
-                <span class="n">ratio_dispatch_to_contract</span><span class="p">,</span>
-                <span class="n">hours_connected_per_day</span><span class="p">):</span>
-    <span class="n">profit</span><span class="p">,</span> <span class="n">revenue</span><span class="p">,</span> <span class="n">cost</span> <span class="o">=</span> <span class="n">compute_profit</span><span class="p">(</span>
-                                            <span class="n">battery_size</span><span class="p">,</span>
-                                            <span class="n">battery_unit_cost</span><span class="p">,</span>
-                                            <span class="n">connector_power</span><span class="p">,</span>
-                                            <span class="n">lifetime_cycles</span><span class="p">,</span>
-                                            <span class="n">depth_of_discharge</span><span class="p">,</span>
-                                            <span class="n">electricity_price</span><span class="p">,</span>
-                                            <span class="n">purchased_energy_cost</span><span class="p">,</span>
-                                            <span class="n">capacity_price</span><span class="p">,</span>
-                                            <span class="n">round_trip_efficiency</span><span class="p">,</span>
-                                            <span class="n">cost_of_v2g_equip</span><span class="p">,</span>
-                                            <span class="n">discount_rate</span><span class="p">,</span>
-                                            <span class="n">economic_lifetime</span><span class="p">,</span>
-                                            <span class="n">distance_driven</span><span class="p">,</span>
-                                            <span class="n">range_buffer</span><span class="p">,</span>
-                                            <span class="n">ratio_dispatch_to_contract</span><span class="p">,</span>
-                                            <span class="n">hours_connected_per_day</span>
-                                            <span class="p">)</span>
-    <span class="k">return</span> <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Profit £</span><span class="si">{}</span><span class="s2"> = £</span><span class="si">{}</span><span class="s2"> - £</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">profit</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">revenue</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">cost</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span> <span class="p">))</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>Profit £-846.98 = £258.44 - £1105.43
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Factor-Fixing">Factor Fixing<a class="anchor-link" href="#Factor-Fixing">&#182;</a></h3><p>We'll perform a <strong>factor fixing</strong> sensitivity analysis using a different method - that of Sobol.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[35]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">SALib.sample.saltelli</span> <span class="k">import</span> <span class="n">sample</span> <span class="k">as</span> <span class="n">ss</span>
-<span class="kn">from</span> <span class="nn">SALib.analyze.sobol</span> <span class="k">import</span> <span class="n">analyze</span> <span class="k">as</span> <span class="n">sa</span>
-
-<span class="n">problem</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="c1"># There are sixteen variables</span>
-    <span class="s1">&#39;num_vars&#39;</span><span class="p">:</span> <span class="mi">16</span><span class="p">,</span>
-    <span class="c1"># These are their names</span>
-    <span class="s1">&#39;names&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;battery_size&#39;</span><span class="p">,</span>
-              <span class="s1">&#39;battery_unit_cost&#39;</span><span class="p">,</span>
-              <span class="s1">&#39;connector_power&#39;</span><span class="p">,</span>
-              <span class="s1">&#39;lifetime_cycles&#39;</span><span class="p">,</span>
-              <span class="s1">&#39;depth_of_discharge&#39;</span><span class="p">,</span>
-              <span class="s1">&#39;electricity_price&#39;</span><span class="p">,</span>
-              <span class="s1">&#39;purchased_energy_cost&#39;</span><span class="p">,</span>
-              <span class="s1">&#39;capacity_price&#39;</span><span class="p">,</span>
-              <span class="s1">&#39;round_trip_efficiency&#39;</span><span class="p">,</span>
-              <span class="s1">&#39;cost_of_v2g_equip&#39;</span><span class="p">,</span>
-              <span class="s1">&#39;discount_rate&#39;</span><span class="p">,</span>
-              <span class="s1">&#39;economic_lifetime&#39;</span><span class="p">,</span>
-              <span class="s1">&#39;distance_driven&#39;</span><span class="p">,</span>
-              <span class="s1">&#39;range_buffer&#39;</span><span class="p">,</span>
-              <span class="s1">&#39;ratio_dispatch_to_contract&#39;</span><span class="p">,</span>
-              <span class="s1">&#39;hours_connected_per_day&#39;</span><span class="p">],</span>
-    <span class="c1"># These are their plausible ranges over which we&#39;ll move the variables</span>
-    <span class="s1">&#39;bounds&#39;</span><span class="p">:</span> <span class="p">[</span>       
-                <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">100</span><span class="p">],</span>
-                <span class="p">[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">400</span><span class="p">],</span>
-                <span class="p">[</span><span class="mf">2.3</span><span class="p">,</span> <span class="mi">22</span><span class="p">],</span>
-                <span class="p">[</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">10000</span><span class="p">],</span>
-                <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">],</span>
-                <span class="p">[</span><span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">],</span> 
-                <span class="p">[</span><span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">],</span>
-                <span class="p">[</span><span class="mf">0.001</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">],</span> 
-                <span class="p">[</span><span class="mf">0.65</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">],</span>
-                <span class="p">[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">5000</span><span class="p">],</span>
-                <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">],</span> 
-                <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">25</span><span class="p">],</span>
-                <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">],</span> 
-                <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">],</span> 
-                <span class="p">[</span><span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.50</span><span class="p">],</span>
-                <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mi">24</span><span class="p">],</span>
-              <span class="p">],</span>
-    <span class="c1"># I don&#39;t want to group any of these variables together</span>
-    <span class="s1">&#39;groups&#39;</span><span class="p">:</span> <span class="kc">None</span>
-    <span class="p">}</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[36]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sample</span> <span class="o">=</span> <span class="n">ss</span><span class="p">(</span><span class="n">problem</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="n">calc_second_order</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="n">profit</span><span class="p">,</span> <span class="n">revenue</span><span class="p">,</span> <span class="n">cost</span> <span class="o">=</span> <span class="n">compute_profit</span><span class="p">(</span><span class="n">sample</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">sample</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span> <span class="n">sample</span><span class="p">[:,</span><span class="mi">2</span><span class="p">],</span> <span class="n">sample</span><span class="p">[:,</span><span class="mi">3</span><span class="p">],</span> <span class="n">sample</span><span class="p">[:,</span><span class="mi">4</span><span class="p">],</span> <span class="n">sample</span><span class="p">[:,</span><span class="mi">5</span><span class="p">],</span> <span class="n">sample</span><span class="p">[:,</span><span class="mi">6</span><span class="p">]</span>
-                       <span class="p">,</span> <span class="n">sample</span><span class="p">[:,</span><span class="mi">7</span><span class="p">],</span> <span class="n">sample</span><span class="p">[:,</span><span class="mi">8</span><span class="p">],</span> <span class="n">sample</span><span class="p">[:,</span><span class="mi">9</span><span class="p">],</span> <span class="n">sample</span><span class="p">[:,</span><span class="mi">10</span><span class="p">],</span> <span class="n">sample</span><span class="p">[:,</span><span class="mi">11</span><span class="p">],</span> <span class="n">sample</span><span class="p">[:,</span><span class="mi">12</span><span class="p">],</span> <span class="n">sample</span><span class="p">[:,</span><span class="mi">13</span><span class="p">]</span>
-                       <span class="p">,</span> <span class="n">sample</span><span class="p">[:,</span><span class="mi">14</span><span class="p">],</span> <span class="n">sample</span><span class="p">[:,</span><span class="mi">15</span><span class="p">])</span>
-<span class="n">SI</span> <span class="o">=</span> <span class="n">sa</span><span class="p">(</span><span class="n">problem</span><span class="p">,</span> <span class="n">profit</span><span class="p">,</span> <span class="n">calc_second_order</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">print_to_console</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:28s}</span><span class="s2"> </span><span class="si">{:&gt;5s}</span><span class="s2"> </span><span class="si">{:&gt;5s}</span><span class="s2"> </span><span class="si">{:&gt;12s}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s2">&quot;Name&quot;</span><span class="p">,</span> <span class="s2">&quot;1st&quot;</span><span class="p">,</span> <span class="s2">&quot;Total&quot;</span><span class="p">,</span> <span class="s2">&quot;Mean of Input&quot;</span><span class="p">))</span>
-<span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">s1</span><span class="p">,</span> <span class="n">st</span><span class="p">,</span> <span class="n">mean</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">problem</span><span class="p">[</span><span class="s1">&#39;names&#39;</span><span class="p">],</span> <span class="n">SI</span><span class="p">[</span><span class="s1">&#39;S1&#39;</span><span class="p">],</span> <span class="n">SI</span><span class="p">[</span><span class="s1">&#39;ST&#39;</span><span class="p">],</span> <span class="n">sample</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)):</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:28s}</span><span class="s2"> </span><span class="si">{:=5.2f}</span><span class="s2"> </span><span class="si">{:=5.2f}</span><span class="s2"> (</span><span class="si">{:=12.2f}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">s1</span><span class="p">,</span> <span class="n">st</span><span class="p">,</span> <span class="n">mean</span><span class="p">))</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>Name                           1st Total Mean of Input
-battery_size                 -0.01  0.25 (       55.00)
-battery_unit_cost             0.01  0.03 (      250.10)
-connector_power               0.01  0.04 (       12.14)
-lifetime_cycles               0.05  0.09 (     5501.03)
-depth_of_discharge            0.00  0.03 (        0.75)
-electricity_price             0.01  0.06 (        0.10)
-purchased_energy_cost         0.02  0.13 (        0.10)
-capacity_price                0.01  0.03 (        0.01)
-round_trip_efficiency         0.00  0.01 (        0.82)
-cost_of_v2g_equip             0.27  0.34 (     2549.62)
-discount_rate                 0.05  0.08 (        0.10)
-economic_lifetime             0.13  0.16 (       14.00)
-distance_driven              -0.00  0.03 (       49.96)
-range_buffer                 -0.01  0.03 (       50.01)
-ratio_dispatch_to_contract    0.07  0.27 (        0.26)
-hours_connected_per_day      -0.01  0.06 (       12.26)
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[42]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">sample</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">18</span><span class="p">):</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s1">&#39;</span><span class="si">{:.3f}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">sample</span><span class="p">[</span><span class="n">j</span><span class="p">]]))</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>(18000, 16)
-29.775 129.004 12.516 7090.820 0.640 0.182 0.019 0.009 0.825 439.746 0.017 8.607 16.113 38.379 0.080 9.198
-74.775 129.004 12.516 7090.820 0.640 0.182 0.019 0.009 0.825 439.746 0.017 8.607 16.113 38.379 0.080 9.198
-29.775 203.418 12.516 7090.820 0.640 0.182 0.019 0.009 0.825 439.746 0.017 8.607 16.113 38.379 0.080 9.198
-29.775 129.004 21.827 7090.820 0.640 0.182 0.019 0.009 0.825 439.746 0.017 8.607 16.113 38.379 0.080 9.198
-29.775 129.004 12.516 7530.273 0.640 0.182 0.019 0.009 0.825 439.746 0.017 8.607 16.113 38.379 0.080 9.198
-29.775 129.004 12.516 7090.820 0.761 0.182 0.019 0.009 0.825 439.746 0.017 8.607 16.113 38.379 0.080 9.198
-29.775 129.004 12.516 7090.820 0.640 0.114 0.019 0.009 0.825 439.746 0.017 8.607 16.113 38.379 0.080 9.198
-29.775 129.004 12.516 7090.820 0.640 0.182 0.191 0.009 0.825 439.746 0.017 8.607 16.113 38.379 0.080 9.198
-29.775 129.004 12.516 7090.820 0.640 0.182 0.019 0.006 0.825 439.746 0.017 8.607 16.113 38.379 0.080 9.198
-29.775 129.004 12.516 7090.820 0.640 0.182 0.019 0.009 0.854 439.746 0.017 8.607 16.113 38.379 0.080 9.198
-29.775 129.004 12.516 7090.820 0.640 0.182 0.019 0.009 0.825 4545.410 0.017 8.607 16.113 38.379 0.080 9.198
-29.775 129.004 12.516 7090.820 0.640 0.182 0.019 0.009 0.825 439.746 0.008 8.607 16.113 38.379 0.080 9.198
-29.775 129.004 12.516 7090.820 0.640 0.182 0.019 0.009 0.825 439.746 0.017 24.549 16.113 38.379 0.080 9.198
-29.775 129.004 12.516 7090.820 0.640 0.182 0.019 0.009 0.825 439.746 0.017 8.607 5.957 38.379 0.080 9.198
-29.775 129.004 12.516 7090.820 0.640 0.182 0.019 0.009 0.825 439.746 0.017 8.607 16.113 34.082 0.080 9.198
-29.775 129.004 12.516 7090.820 0.640 0.182 0.019 0.009 0.825 439.746 0.017 8.607 16.113 38.379 0.082 9.198
-29.775 129.004 12.516 7090.820 0.640 0.182 0.019 0.009 0.825 439.746 0.017 8.607 16.113 38.379 0.080 3.919
-74.775 203.418 21.827 7530.273 0.761 0.114 0.191 0.006 0.854 4545.410 0.008 24.549 5.957 34.082 0.082 3.919
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>The results show that the most important parameters are:</p>
-<ul>
-<li>Capital cost of the V2G equipment</li>
-<li>Ratio of dispatch to contract</li>
-<li>Battery size</li>
-<li>Economic lifetime</li>
-<li>Purchased energy cost</li>
-</ul>
-<p>Other comments:</p>
-<ul>
-<li><strong>Lifetime cycles</strong> has a reasonably important first order effect so we can include that too.</li>
-<li><strong>Battery size</strong> has much more important interaction effects than first-order effects</li>
-<li>Same for <strong>Purchased_energy_cost</strong></li>
-</ul>
-<p>We can now fix the other parameters and revisit our slider model to perform some analysis.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[37]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="nd">@interact</span><span class="p">(</span><span class="n">battery_size</span><span class="o">=</span><span class="n">widgets</span><span class="o">.</span><span class="n">FloatSlider</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="mi">70</span><span class="p">,</span> <span class="nb">min</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mi">5</span><span class="p">),</span> 
-          <span class="n">purchased_energy_cost</span><span class="o">=</span><span class="n">widgets</span><span class="o">.</span><span class="n">FloatSlider</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="nb">min</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mf">0.01</span><span class="p">),</span>
-          <span class="n">cost_of_v2g_equip</span><span class="o">=</span><span class="n">widgets</span><span class="o">.</span><span class="n">FloatSlider</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="mi">2000</span><span class="p">,</span> <span class="nb">min</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mi">5000</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mi">100</span><span class="p">),</span>
-          <span class="n">economic_lifetime</span><span class="o">=</span><span class="n">widgets</span><span class="o">.</span><span class="n">FloatSlider</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="nb">min</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
-          <span class="n">ratio_dispatch_to_contract</span><span class="o">=</span><span class="n">widgets</span><span class="o">.</span><span class="n">FloatSlider</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="mf">0.10</span><span class="p">,</span> <span class="nb">min</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mf">0.50</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mf">0.01</span><span class="p">),</span>
-         <span class="n">lifetime_cycles</span><span class="o">=</span><span class="n">widgets</span><span class="o">.</span><span class="n">FloatSlider</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="mi">2000</span><span class="p">,</span> <span class="nb">min</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mi">10000</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mi">500</span><span class="p">))</span>
-<span class="k">def</span> <span class="nf">plot_profit</span><span class="p">(</span><span class="n">battery_size</span><span class="p">,</span>
-                <span class="n">purchased_energy_cost</span><span class="p">,</span>
-                <span class="n">cost_of_v2g_equip</span><span class="p">,</span>
-                <span class="n">economic_lifetime</span><span class="p">,</span>
-                <span class="n">ratio_dispatch_to_contract</span><span class="p">,</span>
-                <span class="n">lifetime_cycles</span><span class="p">):</span>
-    <span class="n">profit</span><span class="p">,</span> <span class="n">revenue</span><span class="p">,</span> <span class="n">cost</span> <span class="o">=</span> <span class="n">compute_profit</span><span class="p">(</span> <span class="n">lifetime_cycles</span><span class="o">=</span><span class="n">lifetime_cycles</span><span class="p">,</span>
-                                            <span class="n">battery_size</span><span class="o">=</span><span class="n">battery_size</span><span class="p">,</span>
-                                            <span class="n">purchased_energy_cost</span><span class="o">=</span><span class="n">purchased_energy_cost</span><span class="p">,</span>
-                                            <span class="n">cost_of_v2g_equip</span><span class="o">=</span><span class="n">cost_of_v2g_equip</span><span class="p">,</span>
-                                            <span class="n">economic_lifetime</span><span class="o">=</span><span class="n">economic_lifetime</span><span class="p">,</span>
-                                            <span class="n">ratio_dispatch_to_contract</span><span class="o">=</span><span class="n">ratio_dispatch_to_contract</span>
-                                            <span class="p">)</span>
-    <span class="k">return</span> <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Profit £</span><span class="si">{}</span><span class="s2"> = £</span><span class="si">{}</span><span class="s2"> - £</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">profit</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">revenue</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">cost</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span> <span class="p">))</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>Profit £336.91 = £735.84 - £398.93
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Summary">Summary<a class="anchor-link" href="#Summary">&#182;</a></h1><p>Sensitivity analysis helps you:</p>
-<ul>
-<li>Think through your assumptions</li>
-<li>Quantify uncertainty</li>
-<li>Focus on the most influential uncertainties first</li>
-<li>Learn <a href="https://www.python.org">Python</a></li>
-</ul>
-<p>Similar packages to <a href="">SALib</a> for other languages/programmes:</p>
-<ul>
-<li><a href="http://www.sciencedirect.com/science/article/pii/S1364815215001188">Matlab Toolbox <strong>SAFE</strong> for GSA</a></li>
-<li><a href="https://cran.r-project.org/web/packages/sensitivity/index.html"><code>sensitivity</code> package for R</a></li>
-<li><a href="http://crossfitjerseycity.org/wp-content/uploads/2015/01/keep-calm-and-good-luck-graphic1.png">Excel</a></li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[45]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;for </span><span class="si">{}</span><span class="s1"> dimension, </span><span class="si">{}</span><span class="s1"> is within 10</span><span class="si">% o</span><span class="s1">f the edge&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mf">0.2</span><span class="p">))</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>for 1 dimension, 0.2 is within 10% of the edge
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[49]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">):</span>
-    
-    <span class="n">f</span> <span class="o">=</span> <span class="mf">1.</span><span class="o">-</span><span class="p">(</span><span class="mf">0.8</span> <span class="o">**</span><span class="n">i</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;for </span><span class="si">{}</span><span class="s1"> dimension, </span><span class="si">{:.2f}</span><span class="s1"> is within 10</span><span class="si">% o</span><span class="s1">f the edge&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">f</span><span class="p">))</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>for 0 dimension, 0.00 is within 10% of the edge
-for 1 dimension, 0.20 is within 10% of the edge
-for 2 dimension, 0.36 is within 10% of the edge
-for 3 dimension, 0.49 is within 10% of the edge
-for 4 dimension, 0.59 is within 10% of the edge
-for 5 dimension, 0.67 is within 10% of the edge
-for 6 dimension, 0.74 is within 10% of the edge
-for 7 dimension, 0.79 is within 10% of the edge
-for 8 dimension, 0.83 is within 10% of the edge
-for 9 dimension, 0.87 is within 10% of the edge
-for 10 dimension, 0.89 is within 10% of the edge
-for 11 dimension, 0.91 is within 10% of the edge
-for 12 dimension, 0.93 is within 10% of the edge
-for 13 dimension, 0.95 is within 10% of the edge
-for 14 dimension, 0.96 is within 10% of the edge
-for 15 dimension, 0.96 is within 10% of the edge
-for 16 dimension, 0.97 is within 10% of the edge
-for 17 dimension, 0.98 is within 10% of the edge
-for 18 dimension, 0.98 is within 10% of the edge
-for 19 dimension, 0.99 is within 10% of the edge
-for 20 dimension, 0.99 is within 10% of the edge
-for 21 dimension, 0.99 is within 10% of the edge
-for 22 dimension, 0.99 is within 10% of the edge
-for 23 dimension, 0.99 is within 10% of the edge
-for 24 dimension, 1.00 is within 10% of the edge
-for 25 dimension, 1.00 is within 10% of the edge
-for 26 dimension, 1.00 is within 10% of the edge
-for 27 dimension, 1.00 is within 10% of the edge
-for 28 dimension, 1.00 is within 10% of the edge
-for 29 dimension, 1.00 is within 10% of the edge
-for 30 dimension, 1.00 is within 10% of the edge
-for 31 dimension, 1.00 is within 10% of the edge
-for 32 dimension, 1.00 is within 10% of the edge
-for 33 dimension, 1.00 is within 10% of the edge
-for 34 dimension, 1.00 is within 10% of the edge
-for 35 dimension, 1.00 is within 10% of the edge
-for 36 dimension, 1.00 is within 10% of the edge
-for 37 dimension, 1.00 is within 10% of the edge
-for 38 dimension, 1.00 is within 10% of the edge
-for 39 dimension, 1.00 is within 10% of the edge
-for 40 dimension, 1.00 is within 10% of the edge
-for 41 dimension, 1.00 is within 10% of the edge
-for 42 dimension, 1.00 is within 10% of the edge
-for 43 dimension, 1.00 is within 10% of the edge
-for 44 dimension, 1.00 is within 10% of the edge
-for 45 dimension, 1.00 is within 10% of the edge
-for 46 dimension, 1.00 is within 10% of the edge
-for 47 dimension, 1.00 is within 10% of the edge
-for 48 dimension, 1.00 is within 10% of the edge
-for 49 dimension, 1.00 is within 10% of the edge
-for 50 dimension, 1.00 is within 10% of the edge
-for 51 dimension, 1.00 is within 10% of the edge
-for 52 dimension, 1.00 is within 10% of the edge
-for 53 dimension, 1.00 is within 10% of the edge
-for 54 dimension, 1.00 is within 10% of the edge
-for 55 dimension, 1.00 is within 10% of the edge
-for 56 dimension, 1.00 is within 10% of the edge
-for 57 dimension, 1.00 is within 10% of the edge
-for 58 dimension, 1.00 is within 10% of the edge
-for 59 dimension, 1.00 is within 10% of the edge
-for 60 dimension, 1.00 is within 10% of the edge
-for 61 dimension, 1.00 is within 10% of the edge
-for 62 dimension, 1.00 is within 10% of the edge
-for 63 dimension, 1.00 is within 10% of the edge
-for 64 dimension, 1.00 is within 10% of the edge
-for 65 dimension, 1.00 is within 10% of the edge
-for 66 dimension, 1.00 is within 10% of the edge
-for 67 dimension, 1.00 is within 10% of the edge
-for 68 dimension, 1.00 is within 10% of the edge
-for 69 dimension, 1.00 is within 10% of the edge
-for 70 dimension, 1.00 is within 10% of the edge
-for 71 dimension, 1.00 is within 10% of the edge
-for 72 dimension, 1.00 is within 10% of the edge
-for 73 dimension, 1.00 is within 10% of the edge
-for 74 dimension, 1.00 is within 10% of the edge
-for 75 dimension, 1.00 is within 10% of the edge
-for 76 dimension, 1.00 is within 10% of the edge
-for 77 dimension, 1.00 is within 10% of the edge
-for 78 dimension, 1.00 is within 10% of the edge
-for 79 dimension, 1.00 is within 10% of the edge
-for 80 dimension, 1.00 is within 10% of the edge
-for 81 dimension, 1.00 is within 10% of the edge
-for 82 dimension, 1.00 is within 10% of the edge
-for 83 dimension, 1.00 is within 10% of the edge
-for 84 dimension, 1.00 is within 10% of the edge
-for 85 dimension, 1.00 is within 10% of the edge
-for 86 dimension, 1.00 is within 10% of the edge
-for 87 dimension, 1.00 is within 10% of the edge
-for 88 dimension, 1.00 is within 10% of the edge
-for 89 dimension, 1.00 is within 10% of the edge
-for 90 dimension, 1.00 is within 10% of the edge
-for 91 dimension, 1.00 is within 10% of the edge
-for 92 dimension, 1.00 is within 10% of the edge
-for 93 dimension, 1.00 is within 10% of the edge
-for 94 dimension, 1.00 is within 10% of the edge
-for 95 dimension, 1.00 is within 10% of the edge
-for 96 dimension, 1.00 is within 10% of the edge
-for 97 dimension, 1.00 is within 10% of the edge
-for 98 dimension, 1.00 is within 10% of the edge
-for 99 dimension, 1.00 is within 10% of the edge
-</pre>
-</div>
-</div>
-
 </div>
 </div>
 
