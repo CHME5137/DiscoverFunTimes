@@ -60,7 +60,7 @@ morris_problem = {
     # There are six variables
     'num_vars': 7,
     # These are their names
-    'names': ['conn', 'batt', 'dist', 'range', 'dri_eff', 'inv_eff', 'dispatch_time'],
+    'names': ['connector_power', 'stored_energy', 'distance_driven', 'range_buffer', 'driving_efficiency', 'inverter_efficiency', 'dispatch_time'],
     # These are their plausible ranges over which we'll move the variables
     'bounds': [[2.3, 22], # connection_power (kW)
                [50, 100], # battery size (kWh)
@@ -90,14 +90,12 @@ for j in range(10):
 
 
 # Now we're going to save the parameters to a file, so we can run the jobs separately not in this notebook.
+# Because the parameters in the sensitivyt analysis problem may not be (in fact *are not*!) in the same order as those expected by the function (this took me a while to notice) we save the column orders into the parameters file as a header.
 
 # In[6]:
 
-np.savetxt("parameter_values.txt", sample)
-
-# This creates a blank file to store results in:
-with open("results.txt", 'w') as result_file:  # 'w' is write mode, and will clear the file.
-    result_file.write('')
+header = ' '.join(morris_problem['names'])
+np.savetxt("parameter_values.txt", sample, header=header)
 
 
 # # Stop!  
@@ -113,10 +111,34 @@ len(sample)
 
 
 # ...but the Slurm on Discovery is configured with a maximum job array size of 1001. (Run `scontrol show config | grep MaxArraySize` on Discovery to check). So we will run 1000 jobs, each of which runs 8 simulations.  (In real life, split into as few jobs as reasonable, to avoid clogging Slurm with thousands of needless jobs. i.e. 100 jobs each of 80 simulations would be better, or 10 jobs of 800).
+# 
+# First, some tips and tricks that will help you write your own `script.py` (or understand mine). Be sure you understand each of these cells in isolation before putting them together
+
+# In[15]:
+
+header = open("parameter_values.txt").readline() # open the file and read the first line
+print(header)
+header = header.strip('#\n ') # remove the '#', space, and newline from the start and end
+column_names = header.split() # split on whitespace, to get a list
+column_names
+
+
+# In[9]:
+
+big_parameter_list = np.loadtxt("parameter_values.txt")
+parameters = big_parameter_list[0]
+parameters
+
+
+# In[10]:
+
+arguments_dictionary = { key:value for key, value in zip(column_names, parameters)}
+arguments_dictionary
+
 
 # *The following cell contains the script.py. To update it uncomment the first `%load script.py` line and execute it - that will load in the `script.py` file which lives alongside this notebook and is where you should make changes if you are editing this tutorial.*
 
-# In[8]:
+# In[ ]:
 
 # %load script.py
 # This is a script that you should run on Discovery,
@@ -125,12 +147,17 @@ import numpy as np
 import os
 from model import max_vehicle_power
 big_parameter_list = np.loadtxt("parameter_values.txt")
+header = open("parameter_values.txt").readline()
+header = header.strip('#\n ') # remove the '#', space, and newline from the start and end
+column_names = header.split()
+
 job_number = int(os.getenv('SLURM_ARRAY_TASK_ID', default='0'))
 assert 0<=job_number<1000, "Job number should run from 0 to 999"
 for i in range(8):
     parameter_number = (8 * job_number) + i
     parameters = big_parameter_list[parameter_number]
-    result = max_vehicle_power(*parameters)
+    arguments_dictionary = { key:value for key, value in zip(column_names, parameters)}
+    result = max_vehicle_power(**arguments_dictionary)
     """
     Because we don't know what order the jobs will complete in,
     the results may be written out of order!
@@ -206,18 +233,76 @@ np.loadtxt("results.txt")
 # 
 # What we'll try next is to split the 8000 jobs into 100 jobs each running 80 parameter sets, and have each job print the results into its standard output file, which Slurm will collect into 100 separate files. Then we'll concatenate the 100 output files when the jobs are all done.
 
+# In[ ]:
+
+# %load script2.py
+# This is a script that you should run on Discovery,
+# as part of a Slurm Array job, with 100 jobs.
+import numpy as np
+import os
+from model import max_vehicle_power
+big_parameter_list = np.loadtxt("parameter_values.txt")
+header = open("parameter_values.txt").readline()
+header = header.strip('#\n ') # remove the '#', space, and newline from the start and end
+column_names = header.split()
+
+job_number = int(os.getenv('SLURM_ARRAY_TASK_ID', default='0'))
+assert 0<=job_number<100, "Job number should run from 0 to 99"
+for i in range(80):
+    parameter_number = (80 * job_number) + i
+    parameters = big_parameter_list[parameter_number]
+    arguments_dictionary = { key:value for key, value in zip(column_names, parameters)}
+    result = max_vehicle_power(**arguments_dictionary)
+    print('{} {}'.format(parameter_number, result))
+
+
+# If you run a batch job like this:
+# 
+# ```
+# #!/bin/sh
+# #SBATCH -n 1
+# #SBATCH -N 1
+# #SBATCH --job-name=SA
+# #SBATCH --array=0-99
+# #SBATCH -p ser-par-10g
+# #SBATCH -e error_%a.log
+# #SBATCH -o output_%a.log
+# stdbuf -o0 -e0 python3 -u script2.py
+# ```
+# 
+# Then you have run it on Discovery you should have 100 files named `output_0.log` etc. (and 100 named `error_0.log` which are hopefully empty).  Concatenate them all the error files to the screen to check they're empty, then concatenate all the output files into a `results.txt` file:
+# ```
+# $ cat error*.log
+# $ cat output*.log > results.txt
+# ```
+# then copy the results.txt file back to your computer and put it alongside this notebook.
+
 # ## Importing and analyzing the results 
 # Then come back here to load the results and continue the sensitivy analysis.
-# Because our results file may not be in order, but contains the job number at the start of each line, we need to do a little manipulation to get the `output` array as needed
+# Because our results file may not be in order, but contains the job number at the start of each line, we need to do a little manipulation to get the `output` array as needed by SALib
 
 # In[ ]:
 
 results_array = np.loadtxt("results.txt")
+print(results_array[:5,])
 results_dict = dict()
 for number, value in results_array:
-    results_dict[int(number)] = value
-results_dict
+    i = int(number)
+    assert i not in results_dict, "Duplicate entry! {}".format(i)
+    results_dict[i] = value
 output = np.array([results_dict[i] for i in range(len(results_dict))])
+print(output[:5])
+
+
+# We will re-load the sample array.
+#  Ensure parameter_values.txt is the same file you had on Discovery 
+#  when you generated the results.txt.
+# Because the sample is based on random numbers, it changes every time you run the notebook cell above  to generate it, and your results will be completely wrong if you use the wrong sample to analyze the output!
+
+# In[ ]:
+
+sample = np.loadtxt("parameter_values.txt")
+sample
 
 
 # ### Factor Prioritisation
@@ -242,6 +327,25 @@ for name, s1, st, mean in zip(morris_problem['names'], Si['mu'], Si['mu_star'], 
 
 # In[ ]:
 
+fig, (ax1, ax2) = plt.subplots(1,2)
+mp.horizontal_bar_plot(ax1, Si, param_dict={})
+mp.covariance_plot(ax2, Si, {})
+
+
+# ## Sanity check
+# Let's re-do it here in the notebook to compare
+
+# In[ ]:
+
+def monte_carlo_large(data):
+    y = max_vehicle_power(data[0], data[1], data[2], data[3], data[6], data[4], data[5])
+    return y
+# Run the sample through the monte carlo procedure of the power model
+output = monte_carlo_large(sample.T)
+Si = ma.analyze(morris_problem, sample, output, print_to_console=False)
+print("{:20s} {:>7s} {:>7s} {:>7s}".format("Name", "mu", "mu_star", "sigma"))
+for name, s1, st, mean in zip(morris_problem['names'], Si['mu'], Si['mu_star'], Si['sigma']):
+    print("{:20s} {:=7.2f} {:=7.2f} {:=7.2f}".format(name, s1, st, mean))
 fig, (ax1, ax2) = plt.subplots(1,2)
 mp.horizontal_bar_plot(ax1, Si, param_dict={})
 mp.covariance_plot(ax2, Si, {})

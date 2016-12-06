@@ -11852,7 +11852,7 @@ Updates to demonstrate running array jobs on a cluster: Richard West, 2016</p>
     <span class="c1"># There are six variables</span>
     <span class="s1">&#39;num_vars&#39;</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span>
     <span class="c1"># These are their names</span>
-    <span class="s1">&#39;names&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;conn&#39;</span><span class="p">,</span> <span class="s1">&#39;batt&#39;</span><span class="p">,</span> <span class="s1">&#39;dist&#39;</span><span class="p">,</span> <span class="s1">&#39;range&#39;</span><span class="p">,</span> <span class="s1">&#39;dri_eff&#39;</span><span class="p">,</span> <span class="s1">&#39;inv_eff&#39;</span><span class="p">,</span> <span class="s1">&#39;dispatch_time&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;names&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;connector_power&#39;</span><span class="p">,</span> <span class="s1">&#39;stored_energy&#39;</span><span class="p">,</span> <span class="s1">&#39;distance_driven&#39;</span><span class="p">,</span> <span class="s1">&#39;range_buffer&#39;</span><span class="p">,</span> <span class="s1">&#39;driving_efficiency&#39;</span><span class="p">,</span> <span class="s1">&#39;inverter_efficiency&#39;</span><span class="p">,</span> <span class="s1">&#39;dispatch_time&#39;</span><span class="p">],</span>
     <span class="c1"># These are their plausible ranges over which we&#39;ll move the variables</span>
     <span class="s1">&#39;bounds&#39;</span><span class="p">:</span> <span class="p">[[</span><span class="mf">2.3</span><span class="p">,</span> <span class="mi">22</span><span class="p">],</span> <span class="c1"># connection_power (kW)</span>
                <span class="p">[</span><span class="mi">50</span><span class="p">,</span> <span class="mi">100</span><span class="p">],</span> <span class="c1"># battery size (kWh)</span>
@@ -11907,16 +11907,16 @@ Updates to demonstrate running array jobs on a cluster: Richard West, 2016</p>
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>The sample array is  (8000, 7)
 Here are the first 10 rows:
-     8.867     83.333     53.333     26.667      5.500      0.903      8.333
-     8.867     83.333     53.333     26.667      5.500      0.970      8.333
-     8.867     83.333     53.333     26.667      4.500      0.970      8.333
-     8.867     83.333     53.333     80.000      4.500      0.970      8.333
-     8.867     83.333     53.333     80.000      4.500      0.970     24.000
-     8.867     50.000     53.333     80.000      4.500      0.970     24.000
-    22.000     50.000     53.333     80.000      4.500      0.970     24.000
-    22.000     50.000      0.000     80.000      4.500      0.970     24.000
-     8.867    100.000     26.667     80.000      5.500      0.937      8.333
-     8.867    100.000     26.667     80.000      5.500      0.870      8.333
+    15.433    100.000     53.333     80.000      4.000      0.870     24.000
+    15.433    100.000      0.000     80.000      4.000      0.870     24.000
+     2.300    100.000      0.000     80.000      4.000      0.870     24.000
+     2.300    100.000      0.000     26.667      4.000      0.870     24.000
+     2.300     66.667      0.000     26.667      4.000      0.870     24.000
+     2.300     66.667      0.000     26.667      4.000      0.937     24.000
+     2.300     66.667      0.000     26.667      4.000      0.937      8.333
+     2.300     66.667      0.000     26.667      5.000      0.937      8.333
+    15.433     50.000      0.000     80.000      4.500      0.937     24.000
+    15.433     50.000      0.000     26.667      4.500      0.937     24.000
 </pre>
 </div>
 </div>
@@ -11930,7 +11930,8 @@ Here are the first 10 rows:
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Now we're going to save the parameters to a file, so we can run the jobs separately not in this notebook.</p>
+<p>Now we're going to save the parameters to a file, so we can run the jobs separately not in this notebook.
+Because the parameters in the sensitivyt analysis problem may not be (in fact <em>are not</em>!) in the same order as those expected by the function (this took me a while to notice) we save the column orders into the parameters file as a header.</p>
 
 </div>
 </div>
@@ -11940,11 +11941,8 @@ Here are the first 10 rows:
 <div class="prompt input_prompt">In&nbsp;[6]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">savetxt</span><span class="p">(</span><span class="s2">&quot;parameter_values.txt&quot;</span><span class="p">,</span> <span class="n">sample</span><span class="p">)</span>
-
-<span class="c1"># This creates a blank file to store results in:</span>
-<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;results.txt&quot;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">result_file</span><span class="p">:</span>  <span class="c1"># &#39;w&#39; is write mode, and will clear the file.</span>
-    <span class="n">result_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">header</span> <span class="o">=</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">morris_problem</span><span class="p">[</span><span class="s1">&#39;names&#39;</span><span class="p">])</span>
+<span class="n">np</span><span class="o">.</span><span class="n">savetxt</span><span class="p">(</span><span class="s2">&quot;parameter_values.txt&quot;</span><span class="p">,</span> <span class="n">sample</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="n">header</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -11998,9 +11996,125 @@ Here are the first 10 rows:
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>...but the Slurm on Discovery is configured with a maximum job array size of 1001. (Run <code>scontrol show config | grep MaxArraySize</code> on Discovery to check). So we will run 1000 jobs, each of which runs 8 simulations.  (In real life, split into as few jobs as reasonable, to avoid clogging Slurm with thousands of needless jobs. i.e. 100 jobs each of 80 simulations would be better, or 10 jobs of 800).</p>
+<p>First, some tips and tricks that will help you write your own <code>script.py</code> (or understand mine). Be sure you understand each of these cells in isolation before putting them together</p>
 
 </div>
 </div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[15]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">header</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;parameter_values.txt&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span> <span class="c1"># open the file and read the first line</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">header</span><span class="p">)</span>
+<span class="n">header</span> <span class="o">=</span> <span class="n">header</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s1">&#39;#</span><span class="se">\n</span><span class="s1"> &#39;</span><span class="p">)</span> <span class="c1"># remove the &#39;#&#39;, space, and newline from the start and end</span>
+<span class="n">column_names</span> <span class="o">=</span> <span class="n">header</span><span class="o">.</span><span class="n">split</span><span class="p">()</span> <span class="c1"># split on whitespace, to get a list</span>
+<span class="n">column_names</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre># connector_power stored_energy distance_driven range_buffer driving_efficiency inverter_efficiency dispatch_time
+
+</pre>
+</div>
+</div>
+
+<div class="output_area"><div class="prompt output_prompt">Out[15]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[&#39;connector_power&#39;,
+ &#39;stored_energy&#39;,
+ &#39;distance_driven&#39;,
+ &#39;range_buffer&#39;,
+ &#39;driving_efficiency&#39;,
+ &#39;inverter_efficiency&#39;,
+ &#39;dispatch_time&#39;]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[9]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">big_parameter_list</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s2">&quot;parameter_values.txt&quot;</span><span class="p">)</span>
+<span class="n">parameters</span> <span class="o">=</span> <span class="n">big_parameter_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">parameters</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[9]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>array([  15.43333333,  100.        ,   53.33333333,   80.        ,
+          4.        ,    0.87      ,   24.        ])</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[10]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">arguments_dictionary</span> <span class="o">=</span> <span class="p">{</span> <span class="n">key</span><span class="p">:</span><span class="n">value</span> <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">column_names</span><span class="p">,</span> <span class="n">parameters</span><span class="p">)}</span>
+<span class="n">arguments_dictionary</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[10]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>{&#39;connector_power&#39;: 15.433333333333334,
+ &#39;dispatch_time&#39;: 24.0,
+ &#39;distance_driven&#39;: 53.333333333333329,
+ &#39;driving_efficiency&#39;: 4.0,
+ &#39;inverter_efficiency&#39;: 0.87,
+ &#39;range_buffer&#39;: 80.0,
+ &#39;stored_energy&#39;: 100.0}</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
 </div>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
@@ -12014,7 +12128,7 @@ Here are the first 10 rows:
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[8]:</div>
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># %load script.py</span>
@@ -12024,12 +12138,17 @@ Here are the first 10 rows:
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">from</span> <span class="nn">model</span> <span class="k">import</span> <span class="n">max_vehicle_power</span>
 <span class="n">big_parameter_list</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s2">&quot;parameter_values.txt&quot;</span><span class="p">)</span>
+<span class="n">header</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;parameter_values.txt&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>
+<span class="n">header</span> <span class="o">=</span> <span class="n">header</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s1">&#39;#</span><span class="se">\n</span><span class="s1"> &#39;</span><span class="p">)</span> <span class="c1"># remove the &#39;#&#39;, space, and newline from the start and end</span>
+<span class="n">column_names</span> <span class="o">=</span> <span class="n">header</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+
 <span class="n">job_number</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;SLURM_ARRAY_TASK_ID&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s1">&#39;0&#39;</span><span class="p">))</span>
 <span class="k">assert</span> <span class="mi">0</span><span class="o">&lt;=</span><span class="n">job_number</span><span class="o">&lt;</span><span class="mi">1000</span><span class="p">,</span> <span class="s2">&quot;Job number should run from 0 to 999&quot;</span>
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">8</span><span class="p">):</span>
     <span class="n">parameter_number</span> <span class="o">=</span> <span class="p">(</span><span class="mi">8</span> <span class="o">*</span> <span class="n">job_number</span><span class="p">)</span> <span class="o">+</span> <span class="n">i</span>
     <span class="n">parameters</span> <span class="o">=</span> <span class="n">big_parameter_list</span><span class="p">[</span><span class="n">parameter_number</span><span class="p">]</span>
-    <span class="n">result</span> <span class="o">=</span> <span class="n">max_vehicle_power</span><span class="p">(</span><span class="o">*</span><span class="n">parameters</span><span class="p">)</span>
+    <span class="n">arguments_dictionary</span> <span class="o">=</span> <span class="p">{</span> <span class="n">key</span><span class="p">:</span><span class="n">value</span> <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">column_names</span><span class="p">,</span> <span class="n">parameters</span><span class="p">)}</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">max_vehicle_power</span><span class="p">(</span><span class="o">**</span><span class="n">arguments_dictionary</span><span class="p">)</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Because we don&#39;t know what order the jobs will complete in,</span>
 <span class="sd">    the results may be written out of order!</span>
@@ -12120,13 +12239,69 @@ python3 script.py</code></pre>
 </div>
 </div>
 </div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># %load script2.py</span>
+<span class="c1"># This is a script that you should run on Discovery,</span>
+<span class="c1"># as part of a Slurm Array job, with 100 jobs.</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">model</span> <span class="k">import</span> <span class="n">max_vehicle_power</span>
+<span class="n">big_parameter_list</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s2">&quot;parameter_values.txt&quot;</span><span class="p">)</span>
+<span class="n">header</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;parameter_values.txt&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>
+<span class="n">header</span> <span class="o">=</span> <span class="n">header</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s1">&#39;#</span><span class="se">\n</span><span class="s1"> &#39;</span><span class="p">)</span> <span class="c1"># remove the &#39;#&#39;, space, and newline from the start and end</span>
+<span class="n">column_names</span> <span class="o">=</span> <span class="n">header</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+
+<span class="n">job_number</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;SLURM_ARRAY_TASK_ID&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s1">&#39;0&#39;</span><span class="p">))</span>
+<span class="k">assert</span> <span class="mi">0</span><span class="o">&lt;=</span><span class="n">job_number</span><span class="o">&lt;</span><span class="mi">100</span><span class="p">,</span> <span class="s2">&quot;Job number should run from 0 to 99&quot;</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">80</span><span class="p">):</span>
+    <span class="n">parameter_number</span> <span class="o">=</span> <span class="p">(</span><span class="mi">80</span> <span class="o">*</span> <span class="n">job_number</span><span class="p">)</span> <span class="o">+</span> <span class="n">i</span>
+    <span class="n">parameters</span> <span class="o">=</span> <span class="n">big_parameter_list</span><span class="p">[</span><span class="n">parameter_number</span><span class="p">]</span>
+    <span class="n">arguments_dictionary</span> <span class="o">=</span> <span class="p">{</span> <span class="n">key</span><span class="p">:</span><span class="n">value</span> <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">column_names</span><span class="p">,</span> <span class="n">parameters</span><span class="p">)}</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">max_vehicle_power</span><span class="p">(</span><span class="o">**</span><span class="n">arguments_dictionary</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">parameter_number</span><span class="p">,</span> <span class="n">result</span><span class="p">))</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>If you run a batch job like this:</p>
+
+<pre><code>#!/bin/sh
+#SBATCH -n 1
+#SBATCH -N 1
+#SBATCH --job-name=SA
+#SBATCH --array=0-99
+#SBATCH -p ser-par-10g
+#SBATCH -e error_%a.log
+#SBATCH -o output_%a.log
+stdbuf -o0 -e0 python3 -u script2.py</code></pre>
+<p>Then you have run it on Discovery you should have 100 files named <code>output_0.log</code> etc. (and 100 named <code>error_0.log</code> which are hopefully empty).  Concatenate them all the error files to the screen to check they're empty, then concatenate all the output files into a <code>results.txt</code> file:</p>
+
+<pre><code>$ cat error*.log
+$ cat output*.log &gt; results.txt</code></pre>
+<p>then copy the results.txt file back to your computer and put it alongside this notebook.</p>
+
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Importing-and-analyzing-the-results">Importing and analyzing the results<a class="anchor-link" href="#Importing-and-analyzing-the-results">&#182;</a></h2><p>Then come back here to load the results and continue the sensitivy analysis.
-Because our results file may not be in order, but contains the job number at the start of each line, we need to do a little manipulation to get the <code>output</code> array as needed</p>
+Because our results file may not be in order, but contains the job number at the start of each line, we need to do a little manipulation to get the <code>output</code> array as needed by SALib</p>
 
 </div>
 </div>
@@ -12137,11 +12312,41 @@ Because our results file may not be in order, but contains the job number at the
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">results_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s2">&quot;results.txt&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">results_array</span><span class="p">[:</span><span class="mi">5</span><span class="p">,])</span>
 <span class="n">results_dict</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
 <span class="k">for</span> <span class="n">number</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">results_array</span><span class="p">:</span>
-    <span class="n">results_dict</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">number</span><span class="p">)]</span> <span class="o">=</span> <span class="n">value</span>
-<span class="n">results_dict</span>
+    <span class="n">i</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">number</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">i</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">results_dict</span><span class="p">,</span> <span class="s2">&quot;Duplicate entry! </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+    <span class="n">results_dict</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
 <span class="n">output</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">results_dict</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">results_dict</span><span class="p">))])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">output</span><span class="p">[:</span><span class="mi">5</span><span class="p">])</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We will re-load the sample array.
+ Ensure parameter_values.txt is the same file you had on Discovery 
+ when you generated the results.txt.
+Because the sample is based on random numbers, it changes every time you run the notebook cell above  to generate it, and your results will be completely wrong if you use the wrong sample to analyze the output!</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sample</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s2">&quot;parameter_values.txt&quot;</span><span class="p">)</span>
+<span class="n">sample</span>
 </pre></div>
 
 </div>
@@ -12197,6 +12402,40 @@ Because our results file may not be in order, but contains the job number at the
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">mp</span><span class="o">.</span><span class="n">horizontal_bar_plot</span><span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">Si</span><span class="p">,</span> <span class="n">param_dict</span><span class="o">=</span><span class="p">{})</span>
+<span class="n">mp</span><span class="o">.</span><span class="n">covariance_plot</span><span class="p">(</span><span class="n">ax2</span><span class="p">,</span> <span class="n">Si</span><span class="p">,</span> <span class="p">{})</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Sanity-check">Sanity check<a class="anchor-link" href="#Sanity-check">&#182;</a></h2><p>Let's re-do it here in the notebook to compare</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">monte_carlo_large</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">max_vehicle_power</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="mi">6</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="mi">5</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">y</span>
+<span class="c1"># Run the sample through the monte carlo procedure of the power model</span>
+<span class="n">output</span> <span class="o">=</span> <span class="n">monte_carlo_large</span><span class="p">(</span><span class="n">sample</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+<span class="n">Si</span> <span class="o">=</span> <span class="n">ma</span><span class="o">.</span><span class="n">analyze</span><span class="p">(</span><span class="n">morris_problem</span><span class="p">,</span> <span class="n">sample</span><span class="p">,</span> <span class="n">output</span><span class="p">,</span> <span class="n">print_to_console</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:20s}</span><span class="s2"> </span><span class="si">{:&gt;7s}</span><span class="s2"> </span><span class="si">{:&gt;7s}</span><span class="s2"> </span><span class="si">{:&gt;7s}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s2">&quot;Name&quot;</span><span class="p">,</span> <span class="s2">&quot;mu&quot;</span><span class="p">,</span> <span class="s2">&quot;mu_star&quot;</span><span class="p">,</span> <span class="s2">&quot;sigma&quot;</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">s1</span><span class="p">,</span> <span class="n">st</span><span class="p">,</span> <span class="n">mean</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">morris_problem</span><span class="p">[</span><span class="s1">&#39;names&#39;</span><span class="p">],</span> <span class="n">Si</span><span class="p">[</span><span class="s1">&#39;mu&#39;</span><span class="p">],</span> <span class="n">Si</span><span class="p">[</span><span class="s1">&#39;mu_star&#39;</span><span class="p">],</span> <span class="n">Si</span><span class="p">[</span><span class="s1">&#39;sigma&#39;</span><span class="p">]):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:20s}</span><span class="s2"> </span><span class="si">{:=7.2f}</span><span class="s2"> </span><span class="si">{:=7.2f}</span><span class="s2"> </span><span class="si">{:=7.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">s1</span><span class="p">,</span> <span class="n">st</span><span class="p">,</span> <span class="n">mean</span><span class="p">))</span>
+<span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
 <span class="n">mp</span><span class="o">.</span><span class="n">horizontal_bar_plot</span><span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">Si</span><span class="p">,</span> <span class="n">param_dict</span><span class="o">=</span><span class="p">{})</span>
 <span class="n">mp</span><span class="o">.</span><span class="n">covariance_plot</span><span class="p">(</span><span class="n">ax2</span><span class="p">,</span> <span class="n">Si</span><span class="p">,</span> <span class="p">{})</span>
 </pre></div>
