@@ -132,3 +132,7 @@ Why would it be helpful to run Jupyter on Discovery instead of on your own compu
 One example was the sensitivity analysis in chapter 7b: we had to copy files back and forth to the server a bunch, especially when debugging. If we did the analysis in a notebook on Discovery, the data would be right there!
 
 Also helpful if you are analyzing very large data files - Discovery has many terabytes of fast storage available. (Although *not* in your default `$HOME` directory - so be sure to ask research-computing for help and advice if you have "big data" to deal with).
+
+## Why not?
+
+Remember: Although Jupyter Notebooks are a great way to try things out and do one-off bits of analysis, and good for presenting your results, as your simulations get more complicated you probably want to be writing Python scripts and modules, and using an IDE like PyCharm to help you. Develop your code locally, once it's running and debugged, upload to Discovery and run it as a script.  The other drawback of Jupyter Notebooks is collaboration with peers on git: it's *much* harder to merge simultaneous changes in a notebook than in a python script. 
