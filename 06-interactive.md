@@ -118,5 +118,33 @@ Hangup
 [r.west@discovery2 ~]$
 ```
 
+## The quick way?
+
+Not sure why this isn't in the instructions provided by research computing for how to use Discovery, but if at the login node you just type:
+
+		$ srun --pty ipython
+
+it will allocate you some resource, wait until it's available (you may experience a pause), then run ipython in "pseudo terminal mode". All your tab completion, syntax highlighting, terminal wizardry etc. seem to work naturally.
+We can check which compute node we're running by getting python to on like this:
+
+```
+$ srun --pty ipython
+Python 3.5.2 (default, Sep 19 2016, 11:10:34)
+Type "copyright", "credits" or "license" for more information.
+
+IPython 5.1.0 -- An enhanced Interactive Python.
+?         -> Introduction and overview of IPython's features.
+%quickref -> Quick reference.
+help      -> Python's own help system.
+object?   -> Details about 'object', use 'object??' for extra details.
+
+In [1]: import subprocess
+
+In [2]: subprocess.check_output('hostname')
+Out[2]: b'compute-0-013\n'
+```
+
+We used the python function [`subprocess.check_output`](https://docs.python.org/3/library/subprocess.html#subprocess.check_output) to run the linux program [`hostname`](https://linux.die.net/man/1/hostname) and capture the result, which is `compute-0-013` in this case. But when I `exit()` from iPython I am back on the login node.  You could add other options to the `srun` command to specify the partition, etc. if you want.
+
 ---
 Next: 7. [Submitting an array of jobs.](07-arrays.md)
