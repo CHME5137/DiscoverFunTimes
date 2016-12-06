@@ -1,3 +1,5 @@
+# Running arrays of jobs
+
 Okay, now we want to try and run a bunch of jobs at the same time. This is one way that we can parallelize jobs in Python, and is most useful in cases where jobs don't need to communicate with each other.
 
 To get started, we need to add one more line to our `submit.sh` script.

@@ -1,3 +1,5 @@
+# Running interactive jobs on Discovery
+
 Okay, let us say we want to use a node interactively:
 
 If you want to take advantage of Discovery while also using a graphical software (such as `GaussView`), you need to start by logging in with X11 forwarding:
