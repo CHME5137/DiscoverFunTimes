@@ -1,0 +1,5 @@
+*.pyc
+results.txt
+parameter_values.txt
+.ipynb_checkpoints
+__pycache__
