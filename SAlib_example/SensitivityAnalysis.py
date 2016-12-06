@@ -94,6 +94,8 @@ for j in range(10):
 # In[6]:
 
 np.savetxt("parameter_values.txt", sample)
+
+# This creates a blank file to store results in:
 with open("results.txt", 'w') as result_file:  # 'w' is write mode, and will clear the file.
     result_file.write('')
 
@@ -110,11 +112,11 @@ with open("results.txt", 'w') as result_file:  # 'w' is write mode, and will cle
 len(sample)
 
 
-# ...but the Slurm on Discovery is configured with a maximum job array size of 1001. (Run `scontrol show config | grep MaxArraySize` on Discovery to check). So we will run 1000 jobs, each of which runs 8 simulations.
-# 
-# *To update the following cell, uncomment the first `%load script.py` line and execute it - that will load in the `script.py` file which lives alongside this notebook and is where you should make changes if you are editing this tutorial.*
+# ...but the Slurm on Discovery is configured with a maximum job array size of 1001. (Run `scontrol show config | grep MaxArraySize` on Discovery to check). So we will run 1000 jobs, each of which runs 8 simulations.  (In real life, split into as few jobs as reasonable, to avoid clogging Slurm with thousands of needless jobs. i.e. 100 jobs each of 80 simulations would be better, or 10 jobs of 800).
 
-# In[ ]:
+# *The following cell contains the script.py. To update it uncomment the first `%load script.py` line and execute it - that will load in the `script.py` file which lives alongside this notebook and is where you should make changes if you are editing this tutorial.*
+
+# In[8]:
 
 # %load script.py
 # This is a script that you should run on Discovery,
@@ -142,17 +144,73 @@ for i in range(8):
 # Then create a `submit.sh` script to run it as an Array job, to fill the `results.txt` file with results.
 # But realize that your Python script above expects the job number to start at zero, so you'll probably want something like
 # ```
-#     #SBATCH --array=0-999%40
+# #SBATCH --array=0-999%40
 # ```
-# in your batch file.
-# Once your jobs have all finished, copy the `results.txt` back to your computer and put it alongside this Notebook.
+# in your submit file. eg. your `submit.sh` may look something like this:
 # 
+# ```
+# #!/bin/sh
+# #SBATCH -n 1
+# #SBATCH -N 1
+# #SBATCH --job-name=SA
+# #SBATCH --array=0-999
+# #SBATCH -p ser-par-10g
+# python3 script.py
+# ```
+# 
+# Once your jobs have all finished, copy the `results.txt` back to your computer and put it alongside this Notebook. Hopefully we can import it like this:
+
+# In[ ]:
+
+np.loadtxt("results.txt")
+
+
+# In an ideal world, that would have worked. But computers aren't ideal, and it probably didn't. Open the `results.txt` file in a text editor and take a look at it carefully. My results file starts out looking OK:
+# 
+# ```
+# 0 0.0
+# 1 0.0
+# 2 0.0
+# 3 0.0
+# 4 15.433333333333334
+# 5 0.0
+# 6 0.0
+# ```
+# 
+# but there are some blank lines:
+# 
+# ```
+# 36 2.3
+# 37 2.3
+# 38 15.433333333333334
+# 
+# 113 3.2741205154998254
+# 39 15.433333333333334
+# 114 3.472446888816995
+# ```
+# 
+# and occasionally really weird things:
+# 
+# ```
+# 75 0.0
+# 
+# 138 0.0
+# 139 0.0
+# 5227552275525
+# 78 5.979226458931255
+# 141 0.0
+# 658266513936
+# ```
+# 
+# The problem is (probably) that the different compute nodes running different processes all trying to write to the same file, which is stored on a networked file system on yet another computer, are conflicting, instead of waiting their turn to write to the file. This is notoriously difficult to manage, as there are all sorts of levels of cacheing involved. 
+# 
+# What we'll try next is to split the 8000 jobs into 100 jobs each running 80 parameter sets, and have each job print the results into its standard output file, which Slurm will collect into 100 separate files. Then we'll concatenate the 100 output files when the jobs are all done.
 
 # ## Importing and analyzing the results 
 # Then come back here to load the results and continue the sensitivy analysis.
 # Because our results file may not be in order, but contains the job number at the start of each line, we need to do a little manipulation to get the `output` array as needed
 
-# In[15]:
+# In[ ]:
 
 results_array = np.loadtxt("results.txt")
 results_dict = dict()
@@ -160,7 +218,6 @@ for number, value in results_array:
     results_dict[int(number)] = value
 results_dict
 output = np.array([results_dict[i] for i in range(len(results_dict))])
-output
 
 
 # ### Factor Prioritisation

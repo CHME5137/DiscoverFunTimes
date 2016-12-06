@@ -11907,16 +11907,16 @@ Updates to demonstrate running array jobs on a cluster: Richard West, 2016</p>
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>The sample array is  (8000, 7)
 Here are the first 10 rows:
-    15.433     83.333     80.000     80.000      5.000      0.903     24.000
-    15.433     83.333     80.000     80.000      5.000      0.970     24.000
-    15.433     83.333     26.667     80.000      5.000      0.970     24.000
-    15.433     83.333     26.667     80.000      5.000      0.970      8.333
-    15.433     83.333     26.667     26.667      5.000      0.970      8.333
-    15.433     50.000     26.667     26.667      5.000      0.970      8.333
-    15.433     50.000     26.667     26.667      4.000      0.970      8.333
-     2.300     50.000     26.667     26.667      4.000      0.970      8.333
-     2.300     66.667     80.000     80.000      4.000      0.970      0.500
-     2.300     66.667     80.000     80.000      4.000      0.903      0.500
+     8.867     83.333     53.333     26.667      5.500      0.903      8.333
+     8.867     83.333     53.333     26.667      5.500      0.970      8.333
+     8.867     83.333     53.333     26.667      4.500      0.970      8.333
+     8.867     83.333     53.333     80.000      4.500      0.970      8.333
+     8.867     83.333     53.333     80.000      4.500      0.970     24.000
+     8.867     50.000     53.333     80.000      4.500      0.970     24.000
+    22.000     50.000     53.333     80.000      4.500      0.970     24.000
+    22.000     50.000      0.000     80.000      4.500      0.970     24.000
+     8.867    100.000     26.667     80.000      5.500      0.937      8.333
+     8.867    100.000     26.667     80.000      5.500      0.870      8.333
 </pre>
 </div>
 </div>
@@ -11941,6 +11941,8 @@ Here are the first 10 rows:
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">savetxt</span><span class="p">(</span><span class="s2">&quot;parameter_values.txt&quot;</span><span class="p">,</span> <span class="n">sample</span><span class="p">)</span>
+
+<span class="c1"># This creates a blank file to store results in:</span>
 <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;results.txt&quot;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">result_file</span><span class="p">:</span>  <span class="c1"># &#39;w&#39; is write mode, and will clear the file.</span>
     <span class="n">result_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
 </pre></div>
@@ -11995,15 +11997,24 @@ Here are the first 10 rows:
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>...but the Slurm on Discovery is configured with a maximum job array size of 1001. (Run <code>scontrol show config | grep MaxArraySize</code> on Discovery to check). So we will run 1000 jobs, each of which runs 8 simulations.</p>
-<p><em>To update the following cell, uncomment the first <code>%load script.py</code> line and execute it - that will load in the <code>script.py</code> file which lives alongside this notebook and is where you should make changes if you are editing this tutorial.</em></p>
+<p>...but the Slurm on Discovery is configured with a maximum job array size of 1001. (Run <code>scontrol show config | grep MaxArraySize</code> on Discovery to check). So we will run 1000 jobs, each of which runs 8 simulations.  (In real life, split into as few jobs as reasonable, to avoid clogging Slurm with thousands of needless jobs. i.e. 100 jobs each of 80 simulations would be better, or 10 jobs of 800).</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><em>The following cell contains the script.py. To update it uncomment the first <code>%load script.py</code> line and execute it - that will load in the <code>script.py</code> file which lives alongside this notebook and is where you should make changes if you are editing this tutorial.</em></p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># %load script.py</span>
@@ -12042,9 +12053,69 @@ Here are the first 10 rows:
 <p>Then create a <code>submit.sh</code> script to run it as an Array job, to fill the <code>results.txt</code> file with results.
 But realize that your Python script above expects the job number to start at zero, so you'll probably want something like</p>
 
-<pre><code>    #SBATCH --array=0-999%40</code></pre>
-<p>in your batch file.
-Once your jobs have all finished, copy the <code>results.txt</code> back to your computer and put it alongside this Notebook.</p>
+<pre><code>#SBATCH --array=0-999%40</code></pre>
+<p>in your submit file. eg. your <code>submit.sh</code> may look something like this:</p>
+
+<pre><code>#!/bin/sh
+#SBATCH -n 1
+#SBATCH -N 1
+#SBATCH --job-name=SA
+#SBATCH --array=0-999
+#SBATCH -p ser-par-10g
+python3 script.py</code></pre>
+<p>Once your jobs have all finished, copy the <code>results.txt</code> back to your computer and put it alongside this Notebook. Hopefully we can import it like this:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s2">&quot;results.txt&quot;</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>In an ideal world, that would have worked. But computers aren't ideal, and it probably didn't. Open the <code>results.txt</code> file in a text editor and take a look at it carefully. My results file starts out looking OK:</p>
+
+<pre><code>0 0.0
+1 0.0
+2 0.0
+3 0.0
+4 15.433333333333334
+5 0.0
+6 0.0</code></pre>
+<p>but there are some blank lines:</p>
+
+<pre><code>36 2.3
+37 2.3
+38 15.433333333333334
+
+113 3.2741205154998254
+39 15.433333333333334
+114 3.472446888816995</code></pre>
+<p>and occasionally really weird things:</p>
+
+<pre><code>75 0.0
+
+138 0.0
+139 0.0
+5227552275525
+78 5.979226458931255
+141 0.0
+658266513936</code></pre>
+<p>The problem is (probably) that the different compute nodes running different processes all trying to write to the same file, which is stored on a networked file system on yet another computer, are conflicting, instead of waiting their turn to write to the file. This is notoriously difficult to manage, as there are all sorts of levels of cacheing involved.</p>
+<p>What we'll try next is to split the 8000 jobs into 100 jobs each running 80 parameter sets, and have each job print the results into its standard output file, which Slurm will collect into 100 separate files. Then we'll concatenate the 100 output files when the jobs are all done.</p>
 
 </div>
 </div>
@@ -12062,7 +12133,7 @@ Because our results file may not be in order, but contains the job number at the
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[15]:</div>
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">results_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s2">&quot;results.txt&quot;</span><span class="p">)</span>
@@ -12071,40 +12142,9 @@ Because our results file may not be in order, but contains the job number at the
     <span class="n">results_dict</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">number</span><span class="p">)]</span> <span class="o">=</span> <span class="n">value</span>
 <span class="n">results_dict</span>
 <span class="n">output</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">results_dict</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">results_dict</span><span class="p">))])</span>
-<span class="n">output</span>
 </pre></div>
 
 </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_text output_error">
-<pre>
-<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
-<span class="ansi-red-fg">ValueError</span>                                Traceback (most recent call last)
-<span class="ansi-green-fg">&lt;ipython-input-15-bb59a9264336&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span><span class="ansi-blue-fg">()</span>
-<span class="ansi-green-fg">----&gt; 1</span><span class="ansi-red-fg"> </span>results_array <span class="ansi-blue-fg">=</span> np<span class="ansi-blue-fg">.</span>loadtxt<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#34;results.txt&#34;</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">      2</span> results_dict <span class="ansi-blue-fg">=</span> dict<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">      3</span> <span class="ansi-green-fg">for</span> number<span class="ansi-blue-fg">,</span> value <span class="ansi-green-fg">in</span> results_array<span class="ansi-blue-fg">:</span>
-<span class="ansi-green-intense-fg ansi-bold">      4</span>     results_dict<span class="ansi-blue-fg">[</span>int<span class="ansi-blue-fg">(</span>number<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">]</span> <span class="ansi-blue-fg">=</span> value
-<span class="ansi-green-intense-fg ansi-bold">      5</span> results_dict
-
-<span class="ansi-green-fg">/Users/rwest/anaconda/envs/py3/lib/python3.5/site-packages/numpy/lib/npyio.py</span> in <span class="ansi-cyan-fg">loadtxt</span><span class="ansi-blue-fg">(fname, dtype, comments, delimiter, converters, skiprows, usecols, unpack, ndmin)</span>
-<span class="ansi-green-intense-fg ansi-bold">    925</span>                 line_num <span class="ansi-blue-fg">=</span> i <span class="ansi-blue-fg">+</span> skiprows <span class="ansi-blue-fg">+</span> <span class="ansi-cyan-fg">1</span>
-<span class="ansi-green-intense-fg ansi-bold">    926</span>                 raise ValueError(&#34;Wrong number of columns at line %d&#34;
-<span class="ansi-green-fg">--&gt; 927</span><span class="ansi-red-fg">                                  % line_num)
-</span><span class="ansi-green-intense-fg ansi-bold">    928</span> 
-<span class="ansi-green-intense-fg ansi-bold">    929</span>             <span class="ansi-red-fg"># Convert each value according to its column and store</span>
-
-<span class="ansi-red-fg">ValueError</span>: Wrong number of columns at line 112</pre>
-</div>
-</div>
-
 </div>
 </div>
 
