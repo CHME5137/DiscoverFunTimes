@@ -16,10 +16,12 @@ And check you can find it (you should have put `.local/bin` at the end of your `
     $ which jupyter
     ~/.local/bin/jupyter
 
-Now, request allocation for an interactive job, as we learned in [chapter 6](06-interactive.md).
-First check which partitions have some idle nodes using `sinfo`, then request allocation on one, then find out which node you were given, then `ssh` to it.
+Now, request allocation for an interactive job, as we learned in [chapter 6](06-interactive.md):
+First check which partitions have some idle nodes using `sinfo`, then request allocation on one using `salloc`, wait a moment, then find out which node you were given using `squeue`, then `ssh` to it.
 
     $ sinfo | grep idle
+    $ salloc -N 1  --exclusive -p ht-10g-4
+    $ squeue -u r.west
     $ ssh -X compute-3-041
     Last login: Tue Dec  6 08:46:01 2016 from discovery2
 
@@ -98,8 +100,34 @@ Then I go back to the terminal window that was running `jupyter`, shut down the 
 
     $ jupyter notebook --port 8912
 
-This still does not work, see
-http://jupyter-notebook.readthedocs.io/en/latest/public_server.html
+This still does not work because, for security reasons, jupyter is configured to only accept connections from `localhost` [(see here)](http://jupyter-notebook.readthedocs.io/en/latest/public_server.html) and not other computers.
+I tried following the instructions to generate a configuration file and change this setting, but (a) it would make it less secure, and (b) I couldn't get it to work anyway.
 
-    $ jupyter notebook --generate-config
-    Writing default config to: /home/r.west/.jupyter/jupyter_notebook_config.py
+My final approach, was to tunnel all the way through to the compute node using SSH, so the jupyter notebook thinks the connection *is* coming from itself (`localhost`).  Leave your notebook serving on port 8912, but in the other window disconnect your existing ssh tunnels (`$ logout`) and then connect first to discovery2 and then to the compute node, forwarding port 8912 to localhost each time:
+
+    RichardsMacBookPro13:DiscoverFunTimes rwest$ ssh -L 8912:localhost:8912 r.west@discovery2.neu.edu
+    [r.west@discovery2 ~]$ ssh -L 8912:localhost:8912 compute-3-041
+    [r.west@compute-3-041 ~]$
+
+Now open a web browser and point it to http://localhost:8912/ !
+
+To test it works as well as we can hope:
+
+```python
+import matplotlib
+matplotlib.use('Agg')
+%matplotlib inline
+from matplotlib import pyplot as plt
+
+plt.plot(range(5))
+```
+
+When done, be sure to shut down and disconnect all your sessions (lazy way: press Ctrl-C and Ctrl-D a lot in each window!), to release the resources back to the Slurm queues.
+
+
+## Why?
+
+Why would it be helpful to run Jupyter on Discovery instead of on your own computer?
+One example was the sensitivity analysis in chapter 7b: we had to copy files back and forth to the server a bunch, especially when debugging. If we did the analysis in a notebook on Discovery, the data would be right there!
+
+Also helpful if you are analyzing very large data files - Discovery has many terabytes of fast storage available. (Although *not* in your default `$HOME` directory - so be sure to ask research-computing for help and advice if you have "big data" to deal with).
