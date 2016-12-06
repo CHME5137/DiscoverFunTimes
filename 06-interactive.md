@@ -37,6 +37,7 @@ Then log in to your shiny new compute node!
 	$ ssh -X compute-0-006
 
 Sometimes, it may prompt you for a password. Just Ctrl-C and try to `ssh -X <compute-node>` again.
+Note that if you didn't use `-X` when sshing in to discovery login node from your computer, you shouldn't use `-X` when sshing from the login node to the compute node.
 
 Now you're on an interactive session - now let's revisit matplotlib!
 
@@ -63,7 +64,7 @@ In [1]: from matplotlib import pyplot as plt
 ```
 
 This will give a long error message, with the clue `# If this fails your Python may not be configured for Tk`.  Googling this will eventually lead you to try the following
-, but I'll save you some time. You have to `exit()` your `ipython` session and start a new one (`$ ipython`):
+, but I'll save you some time. **You have to `exit()` your `ipython` session and start a new one**  (`$ ipython`) because you have to tweak the matplotlib configuration *before* importing pyplot for the first time:
 
 ```python
 In [1]: import matplotlib
@@ -73,7 +74,8 @@ In [2]: matplotlib.use('Agg')
 In [3]: from matplotlib import pyplot as plt
 ```
 
-OK so far - no errors if you did the [python packages tutorial](04-python-packages.md)!  What we did is change the 'back end' that matplotlib uses, because Discovery is not set up with the default 'Tk', but does have 'Agg' ([don't ask me what these are](http://lmgtfy.com/?q=what+are+Tk+and+Agg)). You'll have to do this in any scripts that use matplotlib. Now let's try to make a plot.
+OK so far - no errors if you did the [python packages tutorial](04-python-packages.md)!
+What we did is change the 'back end' that matplotlib uses, because Discovery is not set up with the default 'Tk', but does have 'Agg' ([don't ask me what these are](http://lmgtfy.com/?q=what+are+Tk+and+Agg)). You'll have to do this in any scripts that use matplotlib. Now let's try to make a plot.
 
 ```python
 In [4]: plt.plot(range(5))
@@ -103,7 +105,8 @@ $ ls *.pdf
 my_figure.pdf
 ```
 
-OK - it's there!  You can retrieve it using some SCP or SFTP commands, or preferably a client with a nice GUI (my favorite is currently [Forklift](http://www.binarynights.com/forklift/) but there are many good free ones to choose from. I used [Cyberduck](https://cyberduck.io/) for a while.)
+OK - it's there!  You can retrieve it using some SCP or SFTP commands, or preferably a client with a nice GUI (my favorite is currently [Forklift](http://www.binarynights.com/forklift/) but there are many good free ones to choose from. I used [Cyberduck](https://cyberduck.io/) for a while.
+FileZilla is commonly mentioned.)
 
 Once you are done with your interactive session, log out of the compute node
 by typing `exit` and then release the allocation using `scancel <jobID>`, e.g.:
