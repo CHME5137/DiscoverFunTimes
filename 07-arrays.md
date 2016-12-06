@@ -39,15 +39,16 @@ we can add `%a` to the filenames in the `submit.sh` header to prevent two parall
 	#SBATCH -o output_%a.log
 	#SBATCH -e error_%a.log
 
-## Try it out!
+## Extra notes and Troubleshooting
 
-Clone this repository to your local computer, then look at [the Jupyter notebook](SAlib_example/SensitivityAnalysis.ipynb) in the `SAlib_example` folder to work through an example using an array job on Discovery to do a sensitivity analysis.
+### How many jobs?
+Discovery is configured with the Slurm default maxium array size of 1001 jobs.
+(Run `scontrol show config | grep MaxArraySize` on Discovery to check).
 
-## Diagnosing problems
+For practical purposes, split your simulations into as few jobs as reasonable, to avoid clogging the Slurm manager with thousands of needless jobs. eg. in our case with 8000 (quick) simulations, 100 jobs each of 80 simulations would be better than 1000 jobs of 8, or 10 jobs of 800 would be better still.
+The limit is that each job must complete in less than 24 hours, or it will be killed.
 
- * The maximum job array size on Discovery is 1001
-
-
+### Job requeued in held state?
 Sometimes a job will have a problem, occasionally for no obvious reason,
 and Slurm will requeue it in a held state. If there was no good reason,
 eg. it was just assigned a node that was malfunctioning, or too busy,
@@ -89,11 +90,18 @@ with one command:
 
 where the number is that of the parent job id (the bit before the underscore).
 
-Otherwise, to release all of your held jobs you would need to do them one by one,
-or piece together script-like command using your [command line fu](https://xkcd.com/196/):
+Otherwise, to release all of your held jobs (if they had different IDs) you would need to do them one by one,
+or pipe together script-like command using your [command line fu](https://xkcd.com/196/):
 
-		$ squeue -u r.west |  grep 'in held state' | awk '{print "scontrol release " $1}' | sh
+		$ squeue -u r.west | grep 'in held state' | awk '{print "scontrol release " $1}' | sh
 
 If they get requeued again, perhaps something is wrong with your job and it's your fault, not Discovery's. Check the error and output logs for clues.
 You can also type `scontrol show jobs <jobid>` to find out more about the
 computer that it ran on, etc.
+
+
+## Try it out!
+
+Clone this repository to your local computer, then look at [the Jupyter notebook](SAlib_example/SensitivityAnalysis.ipynb) in the `SAlib_example` folder to work through an example using an array job on Discovery to do a sensitivity analysis.
+
+---
