@@ -1,5 +1,7 @@
 # Logging in
 
+Request an account following the [instructions](http://www.northeastern.edu/rc/), have your account sponsor approve the request, then wait for an email saying your account is ready.
+
 To log in, use your husky username such as `surname.f` and your husky password.
 
 Connecting as `ssh surname.f@discovery.neu.edu` will randomly assign you to one of the two login nodes,
