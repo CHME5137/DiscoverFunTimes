@@ -9,3 +9,7 @@
 7. [Running an array of jobs](07-arrays.md)
     (7b. [Sensitivity Analysis using an array of jobs](SAlib_example/SensitivityAnalysis.ipynb))
 8. [Running Jupyter Notebooks](08-jupyter.md)
+
+---
+Written in 2016 by Richard West <r.west@northeastern.edu> [@rwest](https://github.com/rwest/)
+Licensed under [CC-BY-4.0](https://creativecommons.org/licenses/by/4.0/)
