@@ -105,3 +105,5 @@ computer that it ran on, etc.
 Clone this repository to your local computer, then look at [the Jupyter notebook](SAlib_example/SensitivityAnalysis.ipynb) in the `SAlib_example` folder to work through an example using an array job on Discovery to do a sensitivity analysis.
 
 ---
+Next: 7b. [Array jobs for Sensitivity Analysis.](SAlib_example/SensitivityAnalysis.ipynb) <br/>
+Then: 8. [Running Jupyter Notebooks](08-jupyter.md)
