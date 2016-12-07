@@ -130,7 +130,7 @@ Not sure why this isn't in the instructions provided by research computing for h
 		$ srun --pty ipython
 
 it will allocate you some resource, wait until it's available (you may experience a pause), then run ipython in "pseudo terminal mode". All your tab completion, syntax highlighting, terminal wizardry etc. seem to work naturally.
-We can check which compute node we're running by like this:
+We can check which compute node we're running like this:
 
 ```
 $ srun --pty ipython
