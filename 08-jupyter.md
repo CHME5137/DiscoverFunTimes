@@ -53,7 +53,7 @@ Leaving the existing ssh connection running, open a new terminal window (or tab)
 
     $ ssh -L 8888:compute-0-115:8888 r.west@discovery2.neu.edu
 
-This new option requests that port 8888 on my local computer is forwarded (through the ssh tunnel to discovery2) to port 8888 on the remote computer compute-3-041.  You will have to change the compute node name, port number, and your username.
+This new option requests that port 8888 on my local computer is forwarded (through the ssh tunnel to discovery2) to port 8888 on the remote computer compute-0-115.  You will have to change the compute node name, possibly the port number, and your username.
 When I try this it logged in OK and looks like it worked, but read the first few lines of output carefully:
 
 ```
