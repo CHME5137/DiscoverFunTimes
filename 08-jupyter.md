@@ -51,13 +51,13 @@ The solution is to tunnel to it, through a new ssh connection.
 
 Leaving the existing ssh connection running, open a new terminal window (or tab) on your local computer (eg. `New Tab` from the `Shell` menu on OS X), and use it to open a new ssh connection, this time with port forwarding:
 
-    $ ssh -L 8888:compute-3-041:8888 r.west@discovery2.neu.edu
+    $ ssh -L 8888:compute-0-115:8888 r.west@discovery2.neu.edu
 
 This new option requests that port 8888 on my local computer is forwarded (through the ssh tunnel to discovery2) to port 8888 on the remote computer compute-3-041.  You will have to change the compute node name, port number, and your username.
 When I try this it logged in OK and looks like it worked, but read the first few lines of output carefully:
 
 ```
-$ ssh -L 8888:compute-3-041:8888 r.west@discovery2.neu.edu
+$ ssh -L 8888:compute-0-115:8888 r.west@discovery2.neu.edu
 bind: Address already in use
 channel_setup_fwd_listener_tcpip: cannot listen to port: 8888
 Could not request local forwarding.
@@ -86,33 +86,25 @@ Last login: Tue Dec  6 08:34:10 2016 from c-65-96-167-0.hsd1.ma.comcast.net
 [r.west@discovery2 ~]$
 ```
 
-It "cannot listen to port: 8888" because it is "already in use". I already have a local jupyter notebook running on my local port 8888!
-So I disconnect (`$ logout`) and try again, forwarding my local port 8912 (arbitrary choice probably not being used) to the remote port 8888:
+It "cannot listen to port: 8888" because it is "already in use". That's because I already have a local jupyter notebook running on my local port 8888!
+So I disconnect (`$ logout`) and try again, forwarding my local port 9999 (arbitrary choice, you can use anything that's greater than 1024 and not already in use) to the compute node's port 8888:
 
-    $ ssh -L 8912:compute-3-041:8888 r.west@discovery2.neu.edu
+    $ ssh -L 9999:compute-0-115:8888 r.west@discovery2.neu.edu
 
 This time it connects without any warning or error lines.
-However, any attempt to connect to the server in my browser fails, because it wants to serve on 8888 but is receiving requests from a browser expecting 8912.
-So I close that connection too (`$ logout`) and open a new one connecting port 8912 to port 8912:
+I should be able to point my browser at http://localhost:9999/ and it'll forward to port 8888 on compute-0-115.
+However, any attempt to connect to the server in my browser fails and the ssh window says `open failed: connect failed: Connection refused`, because for security reasons Jupyter is configured to only accept connections from `localhost` [(see here)](http://jupyter-notebook.readthedocs.io/en/latest/public_server.html) and not from other computers.
+You could try following the instructions to generate a configuration file and change this setting, but (a) it would make it less secure, and (b) I couldn't get it to work anyway!
 
-    $ ssh -L 8912:compute-3-041:8912 r.west@discovery2.neu.edu
+My final approach, which works (or it wouldn't have been my final approach!), is to tunnel all the way through to the compute node using SSH, so the jupyter notebook thinks the connection *is* coming from itself (`localhost`).  Leave your notebook serving on port 8888, but in the other window disconnect your existing ssh tunnels (`$ logout`) and then connect first to discovery2 forwarding your local 9999 to discovery's 8888, and then to the compute node, forwarding port 8888 to localhost:
 
-Then I go back to the terminal window that was running `jupyter`, shut down the jupyter server by pressing Ctrl-C (`^C`) twice, then start it again on port 8912:
+    RichardsMacBookPro13:DiscoverFunTimes rwest$ ssh -L 9999:localhost:8888 r.west@discovery2.neu.edu
+    [r.west@discovery2 ~]$ ssh -L 8888:localhost:8888 compute-0-115
+    [r.west@compute-0-115 ~]$
 
-    $ jupyter notebook --port 8912
+Now open a web browser and point it to [http://localhost:9999/](http://localhost:9999/) !
 
-This still does not work because, for security reasons, jupyter is configured to only accept connections from `localhost` [(see here)](http://jupyter-notebook.readthedocs.io/en/latest/public_server.html) and not other computers.
-I tried following the instructions to generate a configuration file and change this setting, but (a) it would make it less secure, and (b) I couldn't get it to work anyway.
-
-My final approach, was to tunnel all the way through to the compute node using SSH, so the jupyter notebook thinks the connection *is* coming from itself (`localhost`).  Leave your notebook serving on port 8912, but in the other window disconnect your existing ssh tunnels (`$ logout`) and then connect first to discovery2 and then to the compute node, forwarding port 8912 to localhost each time:
-
-    RichardsMacBookPro13:DiscoverFunTimes rwest$ ssh -L 8912:localhost:8912 r.west@discovery2.neu.edu
-    [r.west@discovery2 ~]$ ssh -L 8912:localhost:8912 compute-3-041
-    [r.west@compute-3-041 ~]$
-
-Now open a web browser and point it to http://localhost:8912/ !
-
-To test it works as well as we can hope:
+To test it works as well as we can hope, make a new notebook and enter this in a cell and execute it:
 
 ```python
 import matplotlib
