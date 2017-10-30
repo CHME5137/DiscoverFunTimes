@@ -117,6 +117,12 @@ plt.plot(range(5))
 
 When done, be sure to shut down and disconnect all your sessions (lazy way: press Ctrl-C and Ctrl-D a lot in each window!), to release the resources back to the Slurm queues.
 
+Sometimes another Discovery user is doing this (now that another 14 of you know about it, the probability just increased) and you can end up both trying to use the same ports. For that reason, try different random numbers (greater than 1024 and unlikely to be in use) for the middle port in the chain (i.e the `9145` in the following example):
+
+    RichardsMacBookPro13:DiscoverFunTimes rwest$ ssh -L 9999:localhost:9145 r.west@discovery2.neu.edu
+    [r.west@discovery2 ~]$ ssh -L 9145:localhost:8888 compute-0-115
+    [r.west@compute-0-115 ~]$ jupyter
+    
 
 ## Why?
 
