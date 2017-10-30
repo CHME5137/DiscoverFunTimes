@@ -59,7 +59,7 @@ Last login: Wed Nov 30 17:39:05 2016 from 129.10.10.10
 [r.west@discovery2 ~]$
 ```
 
-More details on how to log in, including X11 forwarding with Xming in Windows, are on the Research Computing website [here](http://nuweb12.neu.edu/rc/?page_id=75).
+More details on how to log in, including X11 forwarding with Xming in Windows, are on the Research Computing website [here](https://www.northeastern.edu/rc/?page_id=75).
 
 ---
 Next: [2. Loading modules](02-modules.md)
