@@ -47,7 +47,7 @@ If port `8888` was busy when you started the notebook, it'll use `8889`, etc.  T
 
 The solution is to tunnel to it, through a new ssh connection.
 
-> The following instructions are for a Mac, Linux, Windows using a bash shell, where you type `ssh` in a terminal to connect via ssh. If you are on Windows and using Putty for your ssh connections, the options for port forwarding are somewhere in the GUI menus. Read [this](https://howto.ccs.neu.edu/howto/windows/ssh-port-tunneling-with-putty/) or ask google if you can't figure it out, then update this tutorial with a few pointers!
+> The following instructions are for a Mac, Linux, Windows using a bash shell, where you type `ssh` in a terminal to connect via ssh. (Ubuntu)[https://www.ubuntu.com/] is a good way to use bash shell with Windows. If you are on Windows and using Putty for your ssh connections, the options for port forwarding are somewhere in the GUI menus. Read [this](https://howto.ccs.neu.edu/howto/windows/ssh-port-tunneling-with-putty/) or ask google if you can't figure it out, then update this tutorial with a few pointers!
 
 Leaving the existing ssh connection running, open a new terminal window (or tab) on your local computer (eg. `New Tab` from the `Shell` menu on OS X), and use it to open a new ssh connection, this time with port forwarding:
 
