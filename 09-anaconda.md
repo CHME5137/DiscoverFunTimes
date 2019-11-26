@@ -11,9 +11,11 @@ conda install -c cantera cantera
 ```
 
 
-Subsequent uses
+Put these lines in your `~/.bashrc` file:
 ```
 module load anaconda3/3.7
 source activate myenv
 ```
+
+Go to https://ood.discovery.neu.edu/ and log in. Request a job for no more than 1 hour.
 
