@@ -10,6 +10,17 @@ https://ood.discovery.neu.edu/ |
 ## Shell access
 From the main portal you can access a shell terminal (as if you have connected via ssh) 
 by choosing "Discovery Shell Access" from the "Clusters" menu.
+From there you can do things like `conda install` and `git clone`.
+
+## File editing
+You can edit files, such as your `.bashrc` file, through this interface:
+
+- From the "Files" menu choose "Home Directory"
+- In the bar at the top choose "Show Dotfiles"
+- Select the file (eg. `.bashrc`)
+- Click the "Edit" button in the bar near the top of the directory listing.
+- Edit the file
+- Click the "Save" button near the top left.
 
 ## Jupyter Notebooks
 By selecting "Interactive Apps" then "Jupyter Notebook" you can launch a jupyter notebook server.
