@@ -20,12 +20,11 @@ To edit it, using the `vi` ext editor [(some instructions here)](https://www.cs.
 
     $ vi .bashrc
 
-You want to add these commands, for `python3`:
+But you could also edit it using the OOD web interface [described here](10-ood.md)
 
-    module load gnu-4.4-compilers
-    module load fftw-3.3.3
-    module load platform-mpi
-    module load python-3.5.2
+You want to add these commands, for Anaconda's Python 3:
+
+    module load anaconda3/3.7
 
 So that your `.bashrc` file looks something like:
 
@@ -37,10 +36,7 @@ if [ -f /etc/bashrc ]; then
 	. /etc/bashrc
 fi
 
-module load gnu-4.4-compilers
-module load fftw-3.3.3
-module load platform-mpi
-module load python-3.5.2
+module load anaconda3/3.7
 ```
 
 **Remember!** Your `.bashrc` is only executed when you first log in to a computer,
