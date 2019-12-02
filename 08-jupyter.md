@@ -11,7 +11,7 @@ Now use pip to install it in your $HOME userspace:
     /shared/apps/python/Python-3.5.2/Python-3.5.2/INSTALL/bin/pip
     $ pip install --user jupyter
 
-And check you can find it (you should have put `.local/bin` at the end of your `$PATH` in your `.bashrc` file during [chapter 4](04-python-packages.md))
+And check you can find it (you should have put `.local/bin` at the end of your `$PATH` in your `.bashrc` file during [chapter 4](04b-python-packages.md))
 
     $ which jupyter
     ~/.local/bin/jupyter

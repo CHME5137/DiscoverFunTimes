@@ -47,7 +47,7 @@ Now you're on an interactive session - now let's revisit matplotlib!
 
 
 ## Using matplotlib
-We managed to install matplotlib before in the [python packages tutorial](04-python-packages.md), but can we use it?
+We managed to install matplotlib before in the [python packages tutorial](04b-python-packages.md), but can we use it?
 
 First load `ipython` then try `from matplotlib import pyplot as plt` as we are used to doing.
 
@@ -76,7 +76,7 @@ In [2]: matplotlib.use('Agg')
 In [3]: from matplotlib import pyplot as plt
 ```
 
-OK so far - no errors if you did the [python packages tutorial](04-python-packages.md)!
+OK so far - no errors if you did the [python packages tutorial](04b-python-packages.md)!
 What we did is change the 'back end' that matplotlib uses, because Discovery is not set up with the default 'Tk', but does have 'Agg' ([don't ask me what these are](http://lmgtfy.com/?q=what+are+Tk+and+Agg)). You'll have to do this in any scripts that use matplotlib. Now let's try to make a plot.
 
 ```python
