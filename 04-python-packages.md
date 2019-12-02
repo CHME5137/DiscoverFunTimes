@@ -1,7 +1,9 @@
 # Adding Python packages
 
-Because we're not using Ananconda on Discovery, but the
-python3 installed by the system administrator, installing
+## Not using Anaconda?
+
+If you're not using Ananconda on Discovery, but perhaps using 
+a python from `module load python`, installing
 additional Python packages is a little different from the
 `conda install <package>` that we're used to.
 
