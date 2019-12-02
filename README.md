@@ -3,14 +3,13 @@
 1. [Logging in](01-logging-in.md)
 2. [Loading modules](02-modules.md)
 3. [Editing your .bashrc](03-bashrc.md)
-4a. [Using Anaconda for Python packages](04a-python-anaconda.md)
-4b. [Installing Python packages](04b-python-packages.md) without Anaconda
+4. [Using Anaconda for Python packages](04a-python-anaconda.md)
+    (4b. [Installing Python packages without Anaconda](04b-python-packages.md))
 5. [Submitting a batch job](05-slurm.md)
 6. [Running an interactive job](06-interactive.md)
 7. [Running an array of jobs](07-arrays.md)
     (7b. [Sensitivity Analysis using an array of jobs](SAlib_example/SensitivityAnalysis.ipynb))
 8. [Running Jupyter Notebooks](08-jupyter.md)
-9. [Using Anaconda](04a-python-anaconda.md)
 10. [Using Open OnDemand](10-ood.md)
 
 ---
